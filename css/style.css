@@ -1,0 +1,15 @@
+.sort-icon {
+    display: inline-block;
+    width: 1em;
+    text-align: center;
+    margin-left: 4px;
+}
+
+th {
+    cursor: pointer;
+    user-select: none;
+}
+
+th:hover {
+    background-color: #f3f4f6;
+}
