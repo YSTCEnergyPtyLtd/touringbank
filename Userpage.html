@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>我的机会清单</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f9fafb;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: #f3f4f6;
+            border-right: 1px solid #e5e7eb;
+            overflow-y: auto;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+        }
+
+        .main-content {
+            margin-left: 240px;
+            width: calc(100% - 240px);
+            overflow-y: auto;
+        }
+
+        .folder-item {
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .folder-item:hover {
+            background-color: #e5e7eb;
+        }
+
+        .folder-item.active {
+            background-color: #dbeafe;
+            color: #2563eb;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .kpi-card {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.2s;
+        }
+
+        .kpi-card:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-card {
+            background-color: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .project-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+        }
+
+        .badge-green {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .badge-yellow {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .badge-blue {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+        }
+
+        .status-blue {
+            color: #2563eb;
+        }
+
+        .status-purple {
+            color: #8b5cf6;
+        }
+
+        .status-orange {
+            color: #f59e0b;
+        }
+
+        .status-green {
+            color: #10b981;
+        }
+
+        .status-gray {
+            color: #6b7280;
+        }
+
+        .fixed-bottom-bar {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: calc(100% - 240px);
+            background-color: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slide-container">
+        <!-- 左侧边栏 - 收藏夹管理 -->
+        <div class="sidebar h-full">
+            <div class="px-4 py-5">
+                <p class="text-xl font-bold text-gray-800 mb-6">我的清单</p>
+                <div class="folder-item active flex justify-between items-center mb-2">
+                    <p class="text-sm">全部项目</p>
+                    <p class="text-sm bg-blue-100 text-blue-700 px-2 rounded-full">18</p>
+                </div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">我的收藏夹</p>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">📁 IP音乐会</p>
+                    </div>
+                    <p class="text-sm text-gray-600">5</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">📁 流行演唱会</p>
+                    </div>
+                    <p class="text-sm text-gray-600">8</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">📁 古典音乐会</p>
+                    </div>
+                    <p class="text-sm text-gray-600">3</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">📁 其他</p>
+                    </div>
+                    <p class="text-sm text-gray-600">2</p>
+                </div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">按目标区域市场分类</p>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">大洋洲项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">7</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">北美项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">3</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">欧洲项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">2</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">中国大陆项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">1</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">日韩项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">2</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">港台项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">2</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">东南亚项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">2</p>
+                </div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">按状态分类</p>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <span class="status-dot bg-gray-400"></span>
+                        <p class="text-sm">未联系</p>
+                    </div>
+                    <p class="text-sm text-gray-600">6</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <span class="status-dot bg-blue-500"></span>
+                        <p class="text-sm">已联系</p>
+                    </div>
+                    <p class="text-sm text-gray-600">5</p>
+                </div>
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">自定义收藏夹</p>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">⭐ Q1优先项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">3</p>
+                </div>
+                <div class="folder-item flex justify-between items-center mb-1">
+                    <div class="flex items-center">
+                        <p class="text-sm">💰 高预算项目</p>
+                    </div>
+                    <p class="text-sm text-gray-600">2</p>
+                </div>
+                <button
+                    class="w-full mt-4 flex items-center justify-center py-2 border border-dashed border-gray-300 rounded-md text-gray-500 hover:border-blue-500 hover:text-blue-500 transition-all">
+                    <p class="text-sm">+ 创建新收藏夹</p>
+                </button>
+            </div>
+        </div>
+        <!-- 主内容区 -->
+        <div class="main-content pb-16">
+            <div class="px-8 py-6 bg-white border-b border-gray-200">
+                <p class="text-2xl font-bold text-gray-800">详情</p>
+            </div>
+            <!-- KPI卡片 -->
+            <div class="px-8 py-4">
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="kpi-card">
+                        <p class="text-sm text-gray-500 mb-1">总项目数</p>
+                        <div class="flex items-baseline">
+                            <p class="text-2xl font-bold text-blue-600">18</p>
+                            <p class="text-sm text-gray-500 ml-2">个项目</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm text-gray-500 mb-1">本周新增</p>
+                        <div class="flex items-baseline">
+                            <p class="text-2xl font-bold text-green-600">3</p>
+                            <p class="text-sm text-green-500 ml-2">↑1</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm text-gray-500 mb-1">待联系项目</p>
+                        <div class="flex items-baseline">
+                            <p class="text-2xl font-bold text-gray-700">6</p>
+                            <p class="text-sm text-gray-500 ml-2">个项目</p>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <p class="text-sm text-gray-500 mb-1">近期提醒</p>
+                        <div class="flex items-baseline">
+                            <p class="text-2xl font-bold text-orange-500">2</p>
+                            <p class="text-sm text-orange-500 ml-2">⚡</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 筛选栏 -->
+            <div class="px-8 py-4 flex items-center space-x-4 border-b border-gray-200">
+                <!-- 搜索框 -->
+                <div class="flex items-center bg-white rounded-md px-3 py-2 border border-gray-300 w-64">
+                    <i class="fas fa-search text-gray-400"></i>
+                    <input class="ml-2 bg-transparent border-none focus:outline-none text-sm w-full"
+                        placeholder="搜索项目名称或关键词..." type="text" />
+                </div>
+                <!-- 项目类型筛选 -->
+                <div class="relative">
+                    <select
+                        class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>全部类型</option>
+                        <option>IP音乐会</option>
+                        <option>流行演唱会</option>
+                        <option>古典音乐会</option>
+                        <option>其他</option>
+                    </select>
+                </div>
+                <!-- 目标市场筛选 -->
+                <div class="relative">
+                    <select
+                        class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>全部市场</option>
+                        <option>澳洲</option>
+                        <option>新加坡</option>
+                        <option>马来西亚</option>
+                        <option>中国</option>
+                    </select>
+                </div>
+                <!-- 联系状态筛选 -->
+                <div class="relative">
+                    <select
+                        class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>全部状态</option>
+                        <option>未联系</option>
+                        <option>已联系</option>
+                    </select>
+                </div>
+                <!-- 排序选项 -->
+                <div class="relative ml-auto">
+                    <select
+                        class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option>最近更新</option>
+                        <option>机会评分</option>
+                        <option>优先级</option>
+                        <option>添加时间</option>
+                    </select>
+                </div>
+            </div>
+            <!-- 项目卡片列表 -->
+            <div class="px-8 py-4">
+                <!-- 项目1 - Final Fantasy音乐会 -->
+                <div class="project-card flex">
+                    <!-- 左侧：海报缩略图 -->
+                    <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
+                        <img alt="Final Fantasy音乐会" class="w-full h-full object-cover"
+                            src="https://page.gensparksite.com/slides_images/a8060e25777b378aee1c3bcaa8ceb43f.png" />
+                    </div>
+                    <!-- 中部：项目信息 -->
+                    <div class="ml-4 flex-grow">
+                        <div class="flex items-center justify-between mb-1">
+                            <div class="flex items-center">
+                                <p class="font-medium text-lg text-gray-800">Final Fantasy音乐会</p>
+                                <span
+                                    class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">IP音乐会</span>
+                            </div>
+                            <div class="badge badge-green">
+                                <p>92分</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">目标市场</p>
+                                <div class="flex space-x-2">
+                                    <div class="badge badge-green">
+                                        <p>🇦🇺 澳洲 ✅</p>
+                                    </div>
+                                    <div class="badge badge-green">
+                                        <p>🇸🇬 新加坡 ✅</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">巡演状态</p>
+                                <div class="flex items-center">
+                                    <span class="status-dot bg-green-500"></span>
+                                    <p class="text-sm text-gray-700">🟢 On-Touring · 亚洲巡演中 · 2025-Q1</p>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">窗口机会</p>
+                                <p class="text-sm text-green-600">预计2025-Q3可进入澳洲</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右侧：追踪管理 -->
+                    <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
+                        <div class="space-y-2">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">联系状态</p>
+                                <p class="text-sm status-gray">未联系</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">优先级</p>
+                                <p class="text-sm text-yellow-500">⭐⭐⭐ 高</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">最后更新</p>
+                                <p class="text-sm text-gray-600">2天前</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">我的备注</p>
+                                <p class="text-sm text-gray-500 italic">待评估预算...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 项目2 - 宫崎骏交响音乐会 -->
+                <div class="project-card flex">
+                    <!-- 左侧：海报缩略图 -->
+                    <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
+                        <img alt="宫崎骏交响音乐会" class="w-full h-full object-cover"
+                            src="https://page.gensparksite.com/slides_images/df6a6ef5d8e868dd4a49443769d18432.png" />
+                    </div>
+                    <!-- 中部：项目信息 -->
+                    <div class="ml-4 flex-grow">
+                        <div class="flex items-center justify-between mb-1">
+                            <div class="flex items-center">
+                                <p class="font-medium text-lg text-gray-800">宫崎骏交响音乐会</p>
+                                <span
+                                    class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">IP音乐会</span>
+                            </div>
+                            <div class="badge badge-green">
+                                <p>89分</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">目标市场</p>
+                                <div class="flex space-x-2">
+                                    <div class="badge badge-green">
+                                        <p>🇦🇺 澳洲 ✅</p>
+                                    </div>
+                                    <div class="badge badge-yellow">
+                                        <p>🇲🇾 马来西亚 ⚠️</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">巡演状态</p>
+                                <div class="flex items-center">
+                                    <span class="status-dot bg-green-500"></span>
+                                    <p class="text-sm text-gray-700">🟢 On-Touring · 亚洲巡演中 · 2025-Q1</p>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">窗口机会</p>
+                                <p class="text-sm text-green-600">预计2025-Q2可进入澳洲</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右侧：追踪管理 -->
+                    <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
+                        <div class="space-y-2">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">联系状态</p>
+                                <p class="text-sm status-blue">已联系</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">优先级</p>
+                                <p class="text-sm text-yellow-500">⭐⭐ 中</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">最后更新</p>
+                                <p class="text-sm text-gray-600">5天前</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">我的备注</p>
+                                <p class="text-sm text-gray-500 italic">已联系官方...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 项目3 - Coldplay巡演 -->
+                <div class="project-card flex">
+                    <!-- 左侧：海报缩略图 -->
+                    <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
+                        <img alt="Coldplay巡演" class="w-full h-full object-cover"
+                            src="https://page.gensparksite.com/slides_images/ed74ea71ebcf2cd9ef382fe54db8ab9a.png" />
+                    </div>
+                    <!-- 中部：项目信息 -->
+                    <div class="ml-4 flex-grow">
+                        <div class="flex items-center justify-between mb-1">
+                            <div class="flex items-center">
+                                <p class="font-medium text-lg text-gray-800">Coldplay巡演</p>
+                                <span
+                                    class="ml-2 px-2 py-0.5 bg-purple-100 text-purple-800 text-xs rounded-full">流行演唱会</span>
+                            </div>
+                            <div class="badge badge-green">
+                                <p>95分</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">目标市场</p>
+                                <div class="flex space-x-2">
+                                    <div class="badge badge-green">
+                                        <p>🇦🇺 澳洲 ✅</p>
+                                    </div>
+                                    <div class="badge badge-green">
+                                        <p>🇨🇳 中国 ✅</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">巡演状态</p>
+                                <div class="flex items-center">
+                                    <span class="status-dot bg-green-500"></span>
+                                    <p class="text-sm text-gray-700">🟢 On-Touring · 欧洲巡演中 · 2025-Q2</p>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">窗口机会</p>
+                                <p class="text-sm text-green-600">预计2025-Q4可进入澳洲</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右侧：追踪管理 -->
+                    <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
+                        <div class="space-y-2">
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">联系状态</p>
+                                <p class="text-sm status-blue">已联系</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">优先级</p>
+                                <p class="text-sm text-yellow-500">⭐⭐⭐ 高</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">最后更新</p>
+                                <p class="text-sm text-gray-600">昨天</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-0.5">我的备注</p>
+                                <p class="text-sm text-gray-500 italic">等待报价确认...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 项目底部操作按钮 -->
+                <div class="flex justify-center space-x-2 mt-4">
+                    <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
+                        <p>查看更多项目</p>
+                    </button>
+                </div>
+            </div>
+            <!-- 底部固定操作栏 -->
+            <div class="fixed-bottom-bar">
+                <div class="flex items-center">
+                    <input class="mr-2" type="checkbox" />
+                    <p class="text-sm text-gray-600">已选择 0 个项目</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
+                        <p>批量标记状态</p>
+                    </button>
+                    <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
+                        <p>批量导出</p>
+                    </button>
+                    <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
+                        <p>批量移除</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
