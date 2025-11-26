@@ -405,6 +405,201 @@
             }
         });
 
+        // 计算并更新收藏夹数字
+        async function updateFolderCounts() {
+            const savedProjects = await favoritesManager.getAllFavorites();
+            const totalCount = savedProjects.length;
+
+            // 更新"全部项目"数量
+            const allProjectsItem = document.querySelector('.folder-item.active');
+            if (allProjectsItem) {
+                const countElement = allProjectsItem.querySelector('p.bg-blue-100, p:last-child');
+                if (countElement) {
+                    countElement.textContent = totalCount;
+                }
+            }
+
+            // 按项目类型分类统计
+            const typeCounts = {
+                'IP音乐会': 0,
+                '流行演唱会': 0,
+                '古典音乐会': 0,
+                '其他': 0
+            };
+
+            // 按区域市场分类统计
+            const regionCounts = {
+                '大洋洲项目': 0,
+                '北美项目': 0,
+                '欧洲项目': 0,
+                '中国大陆项目': 0,
+                '日韩项目': 0,
+                '港台项目': 0,
+                '东南亚项目': 0
+            };
+
+            // 按状态分类统计
+            const statusCounts = {
+                '未联系': 0,
+                '已联系': 0
+            };
+
+            // 统计各分类数量
+            savedProjects.forEach(project => {
+                // 项目类型统计（根据项目名称或type字段推断）
+                const projectType = project.type || inferProjectType(project.name);
+                if (typeCounts.hasOwnProperty(projectType)) {
+                    typeCounts[projectType]++;
+                } else {
+                    typeCounts['其他']++;
+                }
+
+                // 区域市场统计
+                const region = (project.region || '').toLowerCase();
+                if (region.includes('澳洲') || region.includes('澳大利亚') || region.includes('新西兰') || region.includes('大洋洲') || region.includes('australia') || region.includes('oceania')) {
+                    regionCounts['大洋洲项目']++;
+                } else if (region.includes('北美') || region.includes('美国') || region.includes('加拿大') || region.includes('north america') || region.includes('usa') || region.includes('canada')) {
+                    regionCounts['北美项目']++;
+                } else if (region.includes('欧洲') || region.includes('europe')) {
+                    regionCounts['欧洲项目']++;
+                } else if ((region.includes('中国') || region.includes('china')) && !region.includes('港台') && !region.includes('香港') && !region.includes('台湾')) {
+                    regionCounts['中国大陆项目']++;
+                } else if (region.includes('日本') || region.includes('韩国') || region.includes('japan') || region.includes('korea')) {
+                    regionCounts['日韩项目']++;
+                } else if (region.includes('香港') || region.includes('台湾') || region.includes('港台') || region.includes('hong kong') || region.includes('taiwan')) {
+                    regionCounts['港台项目']++;
+                } else if (region.includes('新加坡') || region.includes('马来西亚') || region.includes('泰国') || region.includes('印尼') || region.includes('东南亚') || region.includes('singapore') || region.includes('malaysia') || region.includes('thailand') || region.includes('southeast asia')) {
+                    regionCounts['东南亚项目']++;
+                }
+
+                // 状态统计（默认为未联系，如果有status字段则使用）
+                const status = project.status || '未联系';
+                if (statusCounts.hasOwnProperty(status)) {
+                    statusCounts[status]++;
+                } else {
+                    statusCounts['未联系']++;
+                }
+            });
+
+            // 更新项目类型数字
+            updateFolderItemCount('📁 IP音乐会', typeCounts['IP音乐会']);
+            updateFolderItemCount('📁 流行演唱会', typeCounts['流行演唱会']);
+            updateFolderItemCount('📁 古典音乐会', typeCounts['古典音乐会']);
+            updateFolderItemCount('📁 其他', typeCounts['其他']);
+
+            // 更新区域市场数字
+            updateFolderItemCount('大洋洲项目', regionCounts['大洋洲项目']);
+            updateFolderItemCount('北美项目', regionCounts['北美项目']);
+            updateFolderItemCount('欧洲项目', regionCounts['欧洲项目']);
+            updateFolderItemCount('中国大陆项目', regionCounts['中国大陆项目']);
+            updateFolderItemCount('日韩项目', regionCounts['日韩项目']);
+            updateFolderItemCount('港台项目', regionCounts['港台项目']);
+            updateFolderItemCount('东南亚项目', regionCounts['东南亚项目']);
+
+            // 更新状态数字
+            updateFolderItemCount('未联系', statusCounts['未联系'], true);
+            updateFolderItemCount('已联系', statusCounts['已联系'], true);
+
+            // 自定义收藏夹统计（基于项目属性）
+            const customCounts = {
+                'Q1优先项目': savedProjects.filter(p => p.priority === 'Q1' || p.priority === 'high').length,
+                '高预算项目': savedProjects.filter(p => p.budget === 'high' || (p.score && p.score >= 95)).length
+            };
+            updateFolderItemCount('⭐ Q1优先项目', customCounts['Q1优先项目']);
+            updateFolderItemCount('💰 高预算项目', customCounts['高预算项目']);
+
+            // 更新KPI卡片
+            updateKPICards(savedProjects);
+        }
+
+        // 辅助函数：根据项目名称推断项目类型
+        function inferProjectType(projectName) {
+            const name = projectName.toLowerCase();
+            if (name.includes('ip') || name.includes('知识产权') || name.includes('动漫') || name.includes('游戏')) {
+                return 'IP音乐会';
+            } else if (name.includes('流行') || name.includes('pop') || name.includes('演唱会')) {
+                return '流行演唱会';
+            } else if (name.includes('古典') || name.includes('classical') || name.includes('交响') || name.includes('管弦')) {
+                return '古典音乐会';
+            }
+            return '其他';
+        }
+
+        // 辅助函数：更新收藏夹项的数字
+        function updateFolderItemCount(text, count, isStatus = false) {
+            const folderItems = document.querySelectorAll('.folder-item');
+            folderItems.forEach(item => {
+                const textElements = item.querySelectorAll('p.text-sm');
+                if (textElements.length >= 1) {
+                    const firstText = textElements[0].textContent.trim();
+                    const searchText = text.replace('📁 ', '').replace('⭐ ', '').replace('💰 ', '');
+                    
+                    // 对于状态项，匹配文本（可能包含状态点）
+                    if (isStatus) {
+                        if (firstText.includes(text) || firstText === text) {
+                            // 找到最后一个p元素（应该是数字）
+                            if (textElements.length >= 2) {
+                                textElements[textElements.length - 1].textContent = count;
+                            }
+                        }
+                    } else {
+                        // 对于普通项，匹配文本内容
+                        if (firstText.includes(searchText) || firstText === searchText) {
+                            // 找到最后一个p元素（应该是数字）
+                            if (textElements.length >= 2) {
+                                const lastElement = textElements[textElements.length - 1];
+                                // 确保不是包含emoji的文本元素
+                                if (!lastElement.textContent.includes('📁') && 
+                                    !lastElement.textContent.includes('⭐') && 
+                                    !lastElement.textContent.includes('💰')) {
+                                    lastElement.textContent = count;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 更新KPI卡片
+        function updateKPICards(projects) {
+            const totalCount = projects.length;
+            
+            // 计算本周新增（最近7天）
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+            const thisWeekCount = projects.filter(p => {
+                const dateAdded = p.dateAdded ? new Date(p.dateAdded) : null;
+                return dateAdded && dateAdded >= oneWeekAgo;
+            }).length;
+
+            // 待联系项目（状态为未联系）
+            const pendingCount = projects.filter(p => !p.status || p.status === '未联系').length;
+
+            // 近期提醒（可以基于某些条件，这里暂时用待联系项目数）
+            const reminderCount = pendingCount > 0 ? Math.min(pendingCount, 10) : 0;
+
+            // 更新KPI卡片
+            const kpiCards = document.querySelectorAll('.kpi-card');
+            if (kpiCards.length >= 4) {
+                // 总项目数
+                const totalElement = kpiCards[0].querySelector('.text-2xl');
+                if (totalElement) totalElement.textContent = totalCount;
+
+                // 本周新增
+                const newElement = kpiCards[1].querySelector('.text-2xl');
+                if (newElement) newElement.textContent = thisWeekCount;
+
+                // 待联系项目
+                const pendingElement = kpiCards[2].querySelector('.text-2xl');
+                if (pendingElement) pendingElement.textContent = pendingCount;
+
+                // 近期提醒
+                const reminderElement = kpiCards[3].querySelector('.text-2xl');
+                if (reminderElement) reminderElement.textContent = reminderCount;
+            }
+        }
+
         // 加载收藏列表函数
         async function loadFavorites() {
             const listContainer = document.getElementById('projectListContainer');
@@ -412,6 +607,9 @@
             // 使用 Firestore manager 获取收藏
             const savedProjects = await favoritesManager.getAllFavorites();
             console.log('获取到收藏项目:', savedProjects.length);
+
+            // 更新收藏夹数字
+            await updateFolderCounts();
 
             if (savedProjects.length > 0 && listContainer) {
                 // Generate HTML
@@ -467,6 +665,12 @@
                 while (tempDiv.lastChild) {
                     listContainer.insertBefore(tempDiv.lastChild, firstChild);
                 }
+            } else if (listContainer) {
+                // 如果没有项目，显示空状态
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'text-center py-12 text-gray-500';
+                emptyDiv.innerHTML = '<p class="text-lg mb-2">暂无收藏项目</p><p class="text-sm">去主页添加一些项目到收藏吧！</p>';
+                listContainer.insertBefore(emptyDiv, listContainer.firstChild);
             }
         }
 
