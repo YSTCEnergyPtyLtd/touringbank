@@ -15,6 +15,8 @@ const CACHE_PREFIX = 'concert_cache_';
 let currentConcerts = [];
 let currentSort = { key: 'date', direction: 'desc' };
 let isTableExpanded = false;
+let latestOverviewData = null;
+let latestOverviewRegion = null;
 let regionStatus = {
     '北美': 'pending',
     '欧洲': 'pending',
@@ -42,6 +44,298 @@ let regionVenueCounts = {
     '东南亚': { stadium: 0, arena: 0, theater: 0, livehouse: 0 },
     '大洋洲': { stadium: 0, arena: 0, theater: 0, livehouse: 0 }
 };
+
+const translations = {
+    zh: {
+        nav: {
+            subtitle: '巡演项目详情',
+            apiSettings: 'API设置',
+            login: '登录',
+            myList: '我的清单',
+            logout: '退出登录'
+        },
+        common: {
+            loading: '加载中...',
+            noData: '暂无数据',
+            noConcerts: '暂无演出数据',
+            notAvailable: '无',
+            fetching: '正在获取数据...',
+            loadingTimeline: '正在加载巡演轨迹...',
+            timelineEmpty: '暂无演出数据',
+            selectRegion: '请选择区域'
+        },
+        alerts: {
+            apiSaved: 'API配置已保存',
+            clearCacheConfirm: '确定要清除所有缓存数据吗?',
+            cacheCleared: '缓存已清除',
+            apiKeyRequired: '需要配置 {provider} API Key 以获取实时数据。是否现在配置?'
+        },
+        overview: {
+            statusDate: '日期确认',
+            statusOverview: '概览查询',
+            statusOverviewDone: '概览完成',
+            statusSummary: '完成',
+            isTouring: '是否在巡演',
+            currentTheme: '当前巡演主题',
+            scale: '巡演规模',
+            frequency: '巡演频次',
+            themeSpan: '主题跨度',
+            targetRegion: '目标区域',
+            futureToursSuffix: '未来是否有巡演',
+            plannedCities: '计划巡演城市'
+        },
+        status: {
+            regionLoading: '区域数据加载状态'
+        },
+        rankings: {
+            concertTitle: '演出场次排名',
+            venueTitle: '场馆类型分布',
+            venueHint: '点击地图区域查看',
+            venuePlaceholder: '请选择区域',
+            capacityTitle: '平均场馆容量排名'
+        },
+        timeline: {
+            title: '巡演轨迹',
+            loading: '正在加载巡演轨迹...',
+            noData: '暂无演出数据',
+            noFuture: '暂无未来演出'
+        },
+        table: {
+            date: '演出日期',
+            weekday: '星期',
+            theme: '巡演主题',
+            region: '地区',
+            city: '城市',
+            venue: '场馆',
+            capacity: '容量',
+            priceRange: '票价区间',
+            ticketSale: '开票时间',
+            soldOut: '售罄时间',
+            saleSpeed: '售票速度',
+            organizer: '主办方',
+            attendance: '上座率',
+            status: '状态',
+            loadMore: '加载更多',
+            noData: '暂无演出数据',
+            statusPast: '已完成',
+            statusUpcoming: '即将开始',
+            statusToday: '进行中'
+        },
+        modal: {
+            title: 'LLM API 配置',
+            subtitle: '选择 LLM 提供商并输入对应的 API 密钥',
+            providerLabel: 'LLM 提供商',
+            providerGemini: 'Gemini (Google Search 支持)',
+            providerOpenAI: 'OpenAI (GPT-4)',
+            geminiLabel: 'Gemini API Key',
+            geminiPlaceholder: '输入 Gemini API Key',
+            openaiLabel: 'OpenAI API Key',
+            openaiPlaceholder: '输入 OpenAI API Key',
+            clearCache: '清除缓存',
+            cancel: '取消',
+            save: '保存'
+        },
+        page: {
+            titleSuffix: '项目详情'
+        },
+        main: {
+            loadingTitle: '加载中...'
+        }
+    },
+    en: {
+        nav: {
+            subtitle: 'Touring Project Overview',
+            apiSettings: 'API Settings',
+            login: 'Log In',
+            myList: 'My List',
+            logout: 'Sign Out'
+        },
+        common: {
+            loading: 'Loading...',
+            noData: 'No data',
+            noConcerts: 'No concert data available',
+            notAvailable: 'N/A',
+            fetching: 'Fetching data...',
+            loadingTimeline: 'Loading tour timeline...',
+            timelineEmpty: 'No tour data available',
+            selectRegion: 'Select a region'
+        },
+        alerts: {
+            apiSaved: 'API configuration saved',
+            clearCacheConfirm: 'Clear all cached data?',
+            cacheCleared: 'Cache cleared',
+            apiKeyRequired: 'You need to configure the {provider} API key to fetch live data. Configure now?'
+        },
+        overview: {
+            statusDate: 'Date verification',
+            statusOverview: 'Overview fetch',
+            statusOverviewDone: 'Overview ready',
+            statusSummary: 'done',
+            isTouring: 'Currently touring',
+            currentTheme: 'Current tour theme',
+            scale: 'Tour scale',
+            frequency: 'Tour frequency',
+            themeSpan: 'Theme span',
+            targetRegion: 'Target region',
+            futureToursSuffix: 'future plans',
+            plannedCities: 'Planned cities'
+        },
+        status: {
+            regionLoading: 'Regional data status'
+        },
+        rankings: {
+            concertTitle: 'Concert count ranking',
+            venueTitle: 'Venue mix',
+            venueHint: 'Click a region on the map',
+            venuePlaceholder: 'Please select a region',
+            capacityTitle: 'Average capacity ranking'
+        },
+        timeline: {
+            title: 'Tour timeline',
+            loading: 'Loading timeline...',
+            noData: 'No tour data available',
+            noFuture: 'No upcoming shows'
+        },
+        table: {
+            date: 'Date',
+            weekday: 'Weekday',
+            theme: 'Tour theme',
+            region: 'Region',
+            city: 'City',
+            venue: 'Venue',
+            capacity: 'Capacity',
+            priceRange: 'Price range',
+            ticketSale: 'On-sale date',
+            soldOut: 'Sell-out date',
+            saleSpeed: 'Sale speed',
+            organizer: 'Promoter',
+            attendance: 'Attendance',
+            status: 'Status',
+            loadMore: 'Show more',
+            noData: 'No concerts to display',
+            statusPast: 'Completed',
+            statusUpcoming: 'Upcoming',
+            statusToday: 'Today'
+        },
+        modal: {
+            title: 'LLM API Settings',
+            subtitle: 'Choose a provider and enter the API key',
+            providerLabel: 'LLM provider',
+            providerGemini: 'Gemini (with Google Search)',
+            providerOpenAI: 'OpenAI (GPT-4)',
+            geminiLabel: 'Gemini API Key',
+            geminiPlaceholder: 'Enter Gemini API Key',
+            openaiLabel: 'OpenAI API Key',
+            openaiPlaceholder: 'Enter OpenAI API Key',
+            clearCache: 'Clear cache',
+            cancel: 'Cancel',
+            save: 'Save'
+        },
+        page: {
+            titleSuffix: 'Project Details'
+        },
+        main: {
+            loadingTitle: 'Loading...'
+        }
+    }
+};
+
+const REGION_LABELS = {
+    '北美': { zh: '北美', en: 'North America' },
+    '欧洲': { zh: '欧洲', en: 'Europe' },
+    '中国大陆': { zh: '中国大陆', en: 'Mainland China' },
+    '港台': { zh: '港台', en: 'Hong Kong & Taiwan' },
+    '日韩': { zh: '日韩', en: 'Japan & Korea' },
+    '东南亚': { zh: '东南亚', en: 'Southeast Asia' },
+    '大洋洲': { zh: '大洋洲', en: 'Oceania' },
+    '全球': { zh: '全球', en: 'Global' }
+};
+
+const VENUE_LABELS = {
+    stadium: { zh: '体育场', en: 'Stadium' },
+    arena: { zh: '体育馆', en: 'Arena' },
+    theater: { zh: '剧院', en: 'Theater' },
+    livehouse: { zh: 'Live House', en: 'Live House' }
+};
+
+let currentLanguage = localStorage.getItem('userpage_lang') || 'zh';
+
+function t(key, fallback) {
+    const keys = key.split('.');
+    let result = translations[currentLanguage];
+    for (const segment of keys) {
+        if (result && Object.prototype.hasOwnProperty.call(result, segment)) {
+            result = result[segment];
+        } else {
+            result = undefined;
+            break;
+        }
+    }
+    if (result === undefined) {
+        result = translations.zh;
+        for (const segment of keys) {
+            if (result && Object.prototype.hasOwnProperty.call(result, segment)) {
+                result = result[segment];
+            } else {
+                result = undefined;
+                break;
+            }
+        }
+    }
+    if (result === undefined) {
+        return fallback !== undefined ? fallback : key;
+    }
+    return result;
+}
+
+function getRegionLabel(region) {
+    if (!region) return t('common.notAvailable');
+    const label = REGION_LABELS[region];
+    return label ? (currentLanguage === 'en' ? label.en : label.zh) : region;
+}
+
+function getVenueLabel(type) {
+    const label = VENUE_LABELS[type];
+    return label ? (currentLanguage === 'en' ? label.en : label.zh) : type;
+}
+
+function getNotAvailableText() {
+    return t('common.notAvailable', 'N/A');
+}
+
+function applyTranslations() {
+    document.documentElement.setAttribute('lang', currentLanguage === 'en' ? 'en' : 'zh');
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const text = t(key);
+        if (text) el.textContent = text;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        const text = t(key);
+        if (text) el.setAttribute('placeholder', text);
+    });
+    document.querySelectorAll('[data-region-label]').forEach(el => {
+        const original = el.getAttribute('data-region-label');
+        el.textContent = getRegionLabel(original);
+    });
+    const toggleLabel = document.getElementById('languageToggleLabel');
+    if (toggleLabel) {
+        toggleLabel.textContent = currentLanguage === 'zh' ? '切换英文' : 'Switch to Chinese';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyTranslations();
+    const toggle = document.getElementById('languageToggle');
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+            localStorage.setItem('userpage_lang', currentLanguage);
+            location.reload();
+        });
+    }
+});
 
 // UI Elements
 const apiKeyBtn = document.getElementById('apiKeyBtn');
@@ -92,20 +386,20 @@ if (saveApiKey) {
         localStorage.setItem('openai_api_key', OPENAI_API_KEY);
 
         apiKeyModal.classList.add('hidden');
-        alert('API配置已保存');
+        alert(t('alerts.apiSaved'));
         location.reload();
     });
 }
 
 if (clearCacheBtn) {
     clearCacheBtn.addEventListener('click', () => {
-        if (confirm('确定要清除所有缓存数据吗?')) {
+        if (confirm(t('alerts.clearCacheConfirm'))) {
             Object.keys(localStorage).forEach(key => {
                 if (key.startsWith(CACHE_PREFIX)) {
                     localStorage.removeItem(key);
                 }
             });
-            alert('缓存已清除');
+            alert(t('alerts.cacheCleared'));
             location.reload();
         }
     });
@@ -354,7 +648,8 @@ function updateRegionStatus(region, status) {
     const total = Object.keys(regionStatus).length;
     const summaryEl = document.getElementById('statusSummary');
     if (summaryEl) {
-        summaryEl.textContent = `${completed}/${total} 完成`;
+        const suffix = t('overview.statusSummary', '完成');
+        summaryEl.textContent = `${completed}/${total} ${suffix}`;
     }
 }
 
@@ -365,15 +660,19 @@ function updateRegionalMap() {
 
     const rankingsContainer = document.getElementById('regional-rankings');
     if (rankingsContainer) {
-        rankingsContainer.innerHTML = rankings.map((item, index) => `
-            <div class="flex items-center justify-between p-2 bg-gray-50 rounded text-xs cursor-pointer hover:bg-gray-100" onclick="updateVenueChart('${item.region}')">
-                <div class="flex items-center gap-2">
-                    <span class="font-bold text-gray-400">${index + 1}</span>
-                    <span class="text-gray-600">${item.region}</span>
+        if (rankings.length === 0) {
+            rankingsContainer.innerHTML = `<div class="text-center text-gray-400 text-xs py-4">${t('common.noData')}</div>`;
+        } else {
+            rankingsContainer.innerHTML = rankings.map((item, index) => `
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded text-xs cursor-pointer hover:bg-gray-100" onclick="updateVenueChart('${item.region}')">
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-gray-400">${index + 1}</span>
+                        <span class="text-gray-600">${getRegionLabel(item.region)}</span>
+                    </div>
+                    <span class="font-bold text-gray-900">${item.count}</span>
                 </div>
-                <span class="font-bold text-gray-900">${item.count}</span>
-            </div>
-        `).join('');
+            `).join('');
+        }
     }
 
     // Update Map Markers
@@ -439,13 +738,13 @@ function updateAverageCapacityRanking() {
     const container = document.getElementById('average-capacity-rankings');
     if (container) {
         if (avgCapacities.length === 0) {
-            container.innerHTML = '<div class="text-center text-gray-400 text-xs py-4">暂无数据</div>';
+            container.innerHTML = `<div class="text-center text-gray-400 text-xs py-4">${t('common.noData')}</div>`;
         } else {
             container.innerHTML = avgCapacities.map((item, index) => `
                 <div class="flex items-center justify-between p-2 bg-gray-50 rounded text-xs cursor-pointer hover:bg-gray-100" onclick="updateVenueChart('${item.region}')">
                     <div class="flex items-center gap-2">
                         <span class="font-bold text-gray-400">${index + 1}</span>
-                        <span class="text-gray-600">${item.region}</span>
+                        <span class="text-gray-600">${getRegionLabel(item.region)}</span>
                     </div>
                     <span class="font-bold text-gray-900">${item.avg.toLocaleString()}</span>
                 </div>
@@ -459,22 +758,15 @@ function updateVenueChart(region) {
     const regionNameEl = document.getElementById('chart-region-name');
     if (!chartContainer || !regionNameEl) return;
 
-    regionNameEl.textContent = region;
+    regionNameEl.textContent = getRegionLabel(region);
 
     const counts = regionVenueCounts[region];
     if (!counts) {
-        chartContainer.innerHTML = '<div class="text-center text-gray-400 text-xs py-8">暂无数据</div>';
+        chartContainer.innerHTML = `<div class="text-center text-gray-400 text-xs py-8">${t('common.noData')}</div>`;
         return;
     }
 
     const maxCount = Math.max(...Object.values(counts), 1);
-
-    const labels = {
-        'stadium': 'Stadium',
-        'arena': 'Arena',
-        'theater': 'Theater',
-        'livehouse': 'Live House'
-    };
 
     const colors = {
         'stadium': 'bg-blue-500',
@@ -488,7 +780,7 @@ function updateVenueChart(region) {
         return `
             <div class="space-y-1">
                 <div class="flex justify-between text-xs">
-                    <span class="text-gray-600">${labels[type]}</span>
+                    <span class="text-gray-600">${getVenueLabel(type)}</span>
                     <span class="font-bold text-gray-900">${count}</span>
                 </div>
                 <div class="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
@@ -578,30 +870,36 @@ async function fetchDetailedTourData(artist) {
 function updateSummaryStats(overviewData, region) {
     const regionNameEl = document.getElementById('targetRegionName');
     if (regionNameEl && region) {
-        regionNameEl.textContent = region;
+        regionNameEl.textContent = getRegionLabel(region);
+        latestOverviewRegion = region;
     }
 
     if (!overviewData) {
-        document.getElementById('touringStatus').textContent = '无';
-        document.getElementById('tourTheme').textContent = '无';
-        document.getElementById('regionFutureTours').textContent = '无';
-        document.getElementById('plannedCities').textContent = '无';
-        document.getElementById('tourScale').textContent = '无';
-        document.getElementById('tourFrequency').textContent = '无';
-        document.getElementById('tourThemeSpan').textContent = '无';
+        const fallback = getNotAvailableText();
+        document.getElementById('touringStatus').textContent = fallback;
+        document.getElementById('tourTheme').textContent = fallback;
+        document.getElementById('regionFutureTours').textContent = fallback;
+        document.getElementById('plannedCities').textContent = fallback;
+        document.getElementById('tourScale').textContent = fallback;
+        document.getElementById('tourFrequency').textContent = fallback;
+        document.getElementById('tourThemeSpan').textContent = fallback;
+        latestOverviewData = null;
         return;
     }
 
-    document.getElementById('touringStatus').textContent = overviewData.isTouringNow || '无';
-    document.getElementById('tourTheme').textContent = overviewData.tourTheme || '无';
-    document.getElementById('regionFutureTours').textContent = overviewData.hasFutureToursInRegion || '无';
+    const fallback = getNotAvailableText();
+    document.getElementById('touringStatus').textContent = overviewData.isTouringNow || fallback;
+    document.getElementById('tourTheme').textContent = overviewData.tourTheme || fallback;
+    document.getElementById('regionFutureTours').textContent = overviewData.hasFutureToursInRegion || fallback;
 
     const cities = overviewData.plannedCities || [];
-    document.getElementById('plannedCities').textContent = cities.length > 0 ? cities.join(', ') : '无';
+    const cityJoiner = currentLanguage === 'zh' ? '、' : ', ';
+    document.getElementById('plannedCities').textContent = cities.length > 0 ? cities.join(cityJoiner) : fallback;
 
-    document.getElementById('tourScale').textContent = overviewData.tourScale || '无';
-    document.getElementById('tourFrequency').textContent = overviewData.tourFrequency || '无';
-    document.getElementById('tourThemeSpan').textContent = overviewData.tourThemeSpan || '无';
+    document.getElementById('tourScale').textContent = overviewData.tourScale || fallback;
+    document.getElementById('tourFrequency').textContent = overviewData.tourFrequency || fallback;
+    document.getElementById('tourThemeSpan').textContent = overviewData.tourThemeSpan || fallback;
+    latestOverviewData = overviewData;
 }
 
 function updateTimeline(concerts) {
@@ -609,7 +907,7 @@ function updateTimeline(concerts) {
     if (!timeline) return;
 
     if (!concerts || concerts.length === 0) {
-        timeline.innerHTML = '<div class="text-center text-gray-400 text-sm">暂无演出数据</div>';
+        timeline.innerHTML = `<div class="text-center text-gray-400 text-sm">${t('timeline.noData')}</div>`;
         return;
     }
 
@@ -622,7 +920,7 @@ function updateTimeline(concerts) {
     if (futureConcert) {
         timelineData.push(futureConcert);
     } else {
-        timelineData.push({ city: '无', date: '', venue: '暂无未来演出', isEmpty: true });
+        timelineData.push({ city: getNotAvailableText(), date: '', venue: t('timeline.noFuture'), isEmpty: true });
     }
 
     timeline.innerHTML = `
@@ -654,6 +952,9 @@ function getTimelineColor(dateStr) {
 
 function formatTimelineDate(dateStr) {
     const date = new Date(dateStr);
+    if (currentLanguage === 'en') {
+        return `${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}/${date.getFullYear()}`;
+    }
     return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`;
 }
 
@@ -711,6 +1012,12 @@ function updateSortIcons() {
     }
 }
 
+function normalizeAttendanceText(text) {
+    if (!text) return '-';
+    const clean = text.replace(/\s+/g, '');
+    return clean.length <= 5 ? clean : clean.slice(0, 5);
+}
+
 async function fetchAttendanceData(concertsToFetch) {
     if (!concertsToFetch || concertsToFetch.length === 0) return;
 
@@ -719,13 +1026,13 @@ async function fetchAttendanceData(concertsToFetch) {
     演出列表:
     ${JSON.stringify(concertsToFetch.map(c => ({ date: c.date, city: c.city, venue: c.venue })))}
 
-    请返回JSON格式(只返回JSON,不要其他文字):
+    请返回JSON格式(只返回JSON,不要其他文字)。注意“attendance”字段必须为5个字符以内的中文或百分比描述:
     {
         "attendanceData": [
             {
                 "date": "YYYY-MM-DD",
                 "city": "城市名",
-                "attendance": "上座率 (例如: 95%, 100%, 售罄, 约80%等)"
+                "attendance": "上座率 (示例: 95%, 100%, 售罄, 约80% 等，长度≤5个字符)"
             }
         ]
     }`;
@@ -740,7 +1047,7 @@ async function fetchAttendanceData(concertsToFetch) {
                 result.attendanceData.forEach(item => {
                     const concert = currentConcerts.find(c => c.date === item.date && c.city === item.city);
                     if (concert) {
-                        concert.attendance = item.attendance;
+                        concert.attendance = normalizeAttendanceText(item.attendance);
                         concert.attendanceLoading = false;
                     }
                 });
@@ -758,7 +1065,7 @@ function populateTable() {
     if (!tbody) return;
 
     if (!currentConcerts || currentConcerts.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="14" class="py-8 px-4 text-center text-gray-500">暂无演出数据</td></tr>';
+        tbody.innerHTML = `<tr><td colspan="14" class="py-8 px-4 text-center text-gray-500">${t('table.noData')}</td></tr>`;
         return;
     }
 
@@ -813,7 +1120,7 @@ function populateTable() {
             <td class="py-3 px-3 text-xs">${formatFullDate(concert.date)}</td>
             <td class="py-3 px-3 text-xs">${concert.weekday || '-'}</td>
             <td class="py-3 px-3 text-xs"><span class="${themeColor} px-2 py-1 rounded text-xs">${concert.tourTheme || '-'}</span></td>
-            <td class="py-3 px-3 text-xs">${concert.region || '-'}</td>
+            <td class="py-3 px-3 text-xs">${getRegionLabel(concert.region) || '-'}</td>
             <td class="py-3 px-3 text-xs">${concert.city}</td>
             <td class="py-3 px-3 text-xs">${concert.venue}</td>
             <td class="py-3 px-3 text-xs">${concert.capacity ? concert.capacity.toLocaleString() : '-'}</td>
@@ -866,9 +1173,9 @@ function getStatusClass(dateStr) {
 function getStatusText(dateStr) {
     const date = new Date(dateStr);
     const now = new Date();
-    if (date < now) return '已完成';
-    if (date > now) return '即将开始';
-    return '进行中';
+    if (date < now) return t('table.statusPast');
+    if (date > now) return t('table.statusUpcoming');
+    return t('table.statusToday');
 }
 
 function getCacheKey(artist, region) {
@@ -941,7 +1248,7 @@ async function fetchAndPopulateData(artist, region) {
     await detailedPromise;
     const statusDate = document.getElementById('status-date');
     if (statusDate) {
-        statusDate.innerHTML = '<i class="fas fa-check-circle text-green-500 text-sm"></i><span class="text-xs text-gray-500">日期确认</span>';
+        statusDate.innerHTML = `<i class="fas fa-check-circle text-green-500 text-sm"></i><span class="text-xs text-gray-500">${t('overview.statusDate')}</span>`;
     }
 
     // Fetch Overview after detailed data is ready
@@ -950,7 +1257,7 @@ async function fetchAndPopulateData(artist, region) {
         updateSummaryStats(overviewData, region);
         const statusOverview = document.getElementById('status-overview');
         if (statusOverview) {
-            statusOverview.innerHTML = '<i class="fas fa-check-circle text-green-500 text-sm"></i><span class="text-xs text-gray-500">概览完成</span>';
+            statusOverview.innerHTML = `<i class="fas fa-check-circle text-green-500 text-sm"></i><span class="text-xs text-gray-500">${t('overview.statusOverviewDone')}</span>`;
         }
     }
 
@@ -972,13 +1279,14 @@ const region = params.get('region');
 if (project) {
     let titleText = project;
     if (region && region !== 'Global') {
-        titleText += ` (${region})`;
+        titleText += ` (${getRegionLabel(region)})`;
     }
-    document.title = titleText + " - 项目详情";
+    document.title = `${titleText} - ${t('page.titleSuffix')}`;
 
     const titleEl = document.getElementById('projectTitle');
     if (titleEl) {
         titleEl.textContent = titleText;
+        titleEl.removeAttribute('data-i18n');
     }
 
 
@@ -987,7 +1295,9 @@ if (project) {
         fetchAndPopulateData(project, region || '全球');
     } else {
         setTimeout(() => {
-            if (confirm(`需要配置 ${currentProvider === 'gemini' ? 'Gemini' : 'OpenAI'} API Key 以获取实时数据。是否现在配置?`)) {
+            const providerLabel = currentProvider === 'gemini' ? 'Gemini' : 'OpenAI';
+            const promptText = t('alerts.apiKeyRequired').replace('{provider}', providerLabel);
+            if (confirm(promptText)) {
                 apiKeyModal.classList.remove('hidden');
             }
         }, 1000);
