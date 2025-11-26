@@ -361,6 +361,26 @@
                         <p>查看更多项目</p>
                     </button>
                 </div>
+                <!-- 猜你喜欢 -->
+                <div id="recommendationsSection" class="mt-8 pt-8 border-t border-gray-200 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-sparkles text-purple-600 mr-2"></i>
+                            <p class="text-xl font-bold text-gray-800">猜你喜欢</p>
+                        </div>
+                        <button id="refreshRecommendations" class="text-sm text-blue-600 hover:text-blue-700 flex items-center">
+                            <i class="fas fa-sync-alt mr-1"></i>
+                            <span>刷新推荐</span>
+                        </button>
+                    </div>
+                    <div id="recommendationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- 推荐内容将在这里动态加载 -->
+                        <div class="col-span-full text-center py-8 text-gray-500">
+                            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                            <p>正在分析您的收藏，为您推荐相似艺人...</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- 底部固定操作栏 -->
@@ -394,15 +414,26 @@
 
     <!-- 用户登录状态监听和收藏列表加载 -->
     <script>
+        // Gemini API配置
+        const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent';
+        let GEMINI_API_KEY = localStorage.getItem('gemini_api_key') || '';
+
         // 等待用户登录状态初始化
         firebase.auth().onAuthStateChanged(async function (user) {
             if (user) {
                 console.log('用户已登录:', user.email);
                 // 用户已登录，加载收藏列表
                 await loadFavorites();
+                // 加载推荐
+                await loadRecommendations();
             } else {
                 console.log('用户未登录，跳过加载收藏列表');
             }
+        });
+
+        // 刷新推荐按钮事件
+        document.getElementById('refreshRecommendations')?.addEventListener('click', async () => {
+            await loadRecommendations();
         });
 
         // 计算并更新收藏夹数字
@@ -680,6 +711,199 @@
                 await favoritesManager.removeFavorite(name);
                 window.location.reload();
             }
+        }
+
+        // 加载推荐艺人
+        async function loadRecommendations() {
+            const container = document.getElementById('recommendationsContainer');
+            if (!container) return;
+
+                // 检查API Key
+            if (!GEMINI_API_KEY) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-gray-500">
+                        <i class="fas fa-exclamation-circle text-2xl mb-2 text-yellow-500"></i>
+                        <p>请先配置Gemini API Key</p>
+                        <p class="text-sm mt-2">前往主页设置API Key后即可使用推荐功能</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 获取收藏项目
+            const savedProjects = await favoritesManager.getAllFavorites();
+            if (savedProjects.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-gray-500">
+                        <i class="fas fa-heart text-2xl mb-2"></i>
+                        <p>暂无收藏项目</p>
+                        <p class="text-sm mt-2">添加一些收藏后，我们会为您推荐相似的艺人</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 显示加载状态
+            container.innerHTML = `
+                <div class="col-span-3 text-center py-8 text-gray-500">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                    <p>正在分析您的收藏，为您推荐相似艺人...</p>
+                </div>
+            `;
+
+            try {
+                // 构建提示词
+                const projectNames = savedProjects.map(p => p.name).join('、');
+                const projectRegions = [...new Set(savedProjects.map(p => p.region).filter(Boolean))].join('、');
+                
+                const prompt = `你是一位专业的音乐产业分析师。用户收藏了以下演出项目：
+
+${projectNames}
+
+这些项目主要涉及的市场区域：${projectRegions || '全球'}
+
+请基于用户的收藏偏好，推荐3个与这些项目风格、类型或目标市场相似的艺人/演出项目。
+
+要求：
+1. 推荐3个艺人或演出项目
+2. 每个推荐需要包含：艺人/项目名称、推荐理由（简短说明为什么推荐，与收藏项目的相似之处）
+3. 格式要求：返回JSON格式，格式如下：
+{
+  "recommendations": [
+    {
+      "name": "艺人/项目名称",
+      "reason": "推荐理由，说明与收藏项目的相似之处"
+    },
+    ...
+  ]
+}
+4. 只返回JSON，不要其他文字说明`;
+
+                // 调用Gemini API
+                const response = await fetch(`${GEMINI_API_ENDPOINT}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        contents: [{
+                            parts: [{
+                                text: prompt
+                            }]
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message || 'API调用失败');
+                }
+
+                // 解析返回内容
+                const text = data.candidates[0].content.parts[0].text;
+                let recommendations = [];
+
+                // 尝试提取JSON
+                try {
+                    // 尝试直接解析JSON
+                    const jsonMatch = text.match(/\{[\s\S]*\}/);
+                    if (jsonMatch) {
+                        const jsonData = JSON.parse(jsonMatch[0]);
+                        recommendations = jsonData.recommendations || [];
+                    }
+                } catch (e) {
+                    // 如果JSON解析失败，尝试手动解析
+                    console.warn('JSON解析失败，尝试手动解析:', e);
+                    const lines = text.split('\n');
+                    let currentName = '';
+                    let currentReason = '';
+                    
+                    for (let i = 0; i < lines.length; i++) {
+                        const line = lines[i].trim();
+                        if (line.includes('name') || line.includes('名称') || line.match(/^\d+\./)) {
+                            if (currentName && currentReason) {
+                                recommendations.push({ name: currentName, reason: currentReason });
+                            }
+                            currentName = line.replace(/^\d+\./, '').replace(/name[":\s]*/i, '').replace(/名称[：:\s]*/, '').trim();
+                            currentReason = '';
+                        } else if (line.includes('reason') || line.includes('理由') || line.includes('推荐')) {
+                            currentReason = line.replace(/reason[":\s]*/i, '').replace(/理由[：:\s]*/, '').replace(/推荐[：:\s]*/, '').trim();
+                        } else if (line && !currentReason) {
+                            currentReason = line;
+                        }
+                    }
+                    if (currentName && currentReason) {
+                        recommendations.push({ name: currentName, reason: currentReason });
+                    }
+                }
+
+                // 确保至少有3个推荐
+                if (recommendations.length === 0) {
+                    throw new Error('未能解析推荐结果');
+                }
+
+                // 限制为3个
+                recommendations = recommendations.slice(0, 3);
+
+                // 显示推荐
+                displayRecommendations(recommendations, container);
+
+            } catch (error) {
+                console.error('获取推荐失败:', error);
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-red-500">
+                        <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                        <p>获取推荐失败</p>
+                        <p class="text-sm mt-2 text-gray-600">${error.message || '未知错误'}</p>
+                        <button onclick="loadRecommendations()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm">
+                            重试
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // 显示推荐内容
+        function displayRecommendations(recommendations, container) {
+            if (recommendations.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-gray-500">
+                        <p>暂无推荐</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = recommendations.map((rec, index) => {
+                // 转义HTML特殊字符，防止XSS
+                const name = (rec.name || '未知艺人').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                const reason = (rec.reason || '推荐理由').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                
+                return `
+                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-200">
+                    <div class="flex items-start mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+                            ${index + 1}
+                        </div>
+                        <div class="ml-4 flex-grow">
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">${name}</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">${reason}</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-100">
+                        <button onclick="searchArtist('${rec.name.replace(/'/g, "\\'")}')" class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm">
+                            <i class="fas fa-search mr-2"></i>查看详情
+                        </button>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        // 搜索艺人（跳转到主页搜索）
+        function searchArtist(artistName) {
+            window.location.href = `Main.html?search=${encodeURIComponent(artistName)}`;
         }
     </script>
 </body>
