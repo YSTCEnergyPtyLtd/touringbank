@@ -26,11 +26,17 @@
             <span class="text-blue-400 text-sm ml-2">BETA</span>
         </div>
 
-        <div class="ml-auto flex items-center" id="userSection">
+        <div class="ml-auto flex items-center space-x-3" id="userSection">
+            <button id="languageToggle"
+                class="flex items-center px-3 py-1.5 border border-gray-700 rounded-md text-xs text-gray-200 hover:bg-gray-800 transition-colors">
+                <i class="fas fa-language mr-2"></i>
+                <span id="languageToggleLabel">切换英文</span>
+            </button>
+
             <!-- 未登录状态 -->
             <a href="Login.html" id="loginLink"
                 class="text-gray-400 hover:text-white text-sm flex items-center transition-colors">
-                <i class="fas fa-user mr-2"></i>登录
+                <i class="fas fa-user mr-2"></i><span data-i18n="nav.login">登录</span>
             </a>
 
             <!-- 已登录状态 -->
@@ -46,11 +52,11 @@
                 <div id="userDropdown"
                     class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
                     <a href="Userpage.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        <i class="fas fa-list mr-2"></i>我的清单
+                        <i class="fas fa-list mr-2"></i><span data-i18n="nav.myList">我的清单</span>
                     </a>
                     <hr class="my-2">
                     <a href="#" id="logoutBtn" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                        <i class="fas fa-sign-out-alt mr-2"></i>退出登录
+                        <i class="fas fa-sign-out-alt mr-2"></i><span data-i18n="nav.logout">退出登录</span>
                     </a>
                 </div>
             </div>
@@ -60,37 +66,37 @@
     <!-- 搜索区 - 全屏蓝色背景 -->
     <div class="bg-gradient-to-r from-gray-900 to-blue-900 min-h-screen flex flex-col items-center justify-center px-8">
         <div class="max-w-4xl text-center mb-8">
-            <p class="text-5xl font-bold text-white mb-4">巡演机会雷达</p>
-            <p class="text-xl text-gray-300">快速发现全球巡演项目在你的目标市场是否有空档期</p>
+            <p class="text-5xl font-bold text-white mb-4" data-i18n="hero.title">巡演机会雷达</p>
+            <p class="text-xl text-gray-300" data-i18n="hero.subtitle">快速发现全球巡演项目在你的目标市场是否有空档期</p>
         </div>
 
         <div class="w-full max-w-3xl relative flex items-center">
             <select id="regionSelect"
                 class="h-full py-4 pl-6 pr-8 rounded-l-lg text-lg bg-gray-50 border-r border-gray-200 focus:outline-none text-gray-700 appearance-none cursor-pointer hover:bg-gray-100 transition-colors">
-                <option value="北美">北美</option>
-                <option value="欧洲">欧洲</option>
-                <option value="中国大陆">中国大陆</option>
-                <option value="港台">港台</option>
-                <option value="日韩">日韩</option>
-                <option value="东南亚">东南亚</option>
-                <option value="大洋洲">大洋洲</option>
+                <option value="大洋洲" data-i18n="regions.oceania">大洋洲</option>
+                <option value="北美" data-i18n="regions.northAmerica">北美</option>
+                <option value="欧洲" data-i18n="regions.europe">欧洲</option>
+                <option value="中国大陆" data-i18n="regions.chinaMainland">中国大陆</option>
+                <option value="港台" data-i18n="regions.hktw">港台</option>
+                <option value="日韩" data-i18n="regions.jpKr">日韩</option>
+                <option value="东南亚" data-i18n="regions.sea">东南亚</option>
             </select>
             <div class="relative w-full">
                 <input id="searchInput"
                     class="w-full py-4 px-6 rounded-r-lg text-lg bg-white shadow-lg border-0 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder="搜索艺人、项目或IP名称..." type="text" />
+                    placeholder="搜索艺人、项目或IP名称..." data-i18n-placeholder="hero.searchPlaceholder" type="text" />
                 <button id="searchBtn"
                     class="absolute right-2 top-1.5 bg-blue-600 text-white px-6 py-2.5 rounded-md text-lg font-medium hover:bg-blue-700 transition-colors">
-                    搜索
+                    <span data-i18n="hero.searchBtn">搜索</span>
                 </button>
             </div>
         </div>
 
         <div class="mt-6 flex space-x-4 text-sm text-blue-300">
-            <p>热门搜索:</p>
-            <p class="cursor-pointer hover:text-white transition-colors">王嘉尔</p>
-            <p class="cursor-pointer hover:text-white transition-colors">Final Fantasy</p>
-            <p class="cursor-pointer hover:text-white transition-colors">宫崎骏交响</p>
+            <p data-i18n="hero.popularLabel">热门搜索:</p>
+            <p class="cursor-pointer hover:text-white transition-colors" data-i18n="hero.popular1">王嘉尔</p>
+            <p class="cursor-pointer hover:text-white transition-colors" data-i18n="hero.popular2">Final Fantasy</p>
+            <p class="cursor-pointer hover:text-white transition-colors" data-i18n="hero.popular3">宫崎骏交响</p>
         </div>
     </div>
 
@@ -99,6 +105,97 @@
 
     <!-- 交互脚本 -->
     <script>
+        // 国际化配置
+        const translations = {
+            zh: {
+                'nav.login': '登录',
+                'nav.myList': '我的清单',
+                'nav.logout': '退出登录',
+                'hero.title': '巡演机会雷达',
+                'hero.subtitle': '快速发现全球巡演项目在你的目标市场是否有空档期',
+                'hero.searchPlaceholder': '搜索艺人、项目或IP名称...',
+                'hero.searchBtn': '搜索',
+                'hero.popularLabel': '热门搜索:',
+                'hero.popular1': '王嘉尔',
+                'hero.popular2': 'Final Fantasy',
+                'hero.popular3': '宫崎骏交响',
+                'regions.northAmerica': '北美',
+                'regions.europe': '欧洲',
+                'regions.chinaMainland': '中国大陆',
+                'regions.hktw': '港台',
+                'regions.jpKr': '日韩',
+                'regions.sea': '东南亚',
+                'regions.oceania': '大洋洲',
+                'alerts.needLogin': '请先登录后再进行搜索',
+                'alerts.emptySearch': '请输入搜索内容'
+            },
+            en: {
+                'nav.login': 'Log In',
+                'nav.myList': 'My List',
+                'nav.logout': 'Sign Out',
+                'hero.title': 'Touring Opportunity Radar',
+                'hero.subtitle': 'Quickly spot open windows in your target markets for global tours',
+                'hero.searchPlaceholder': 'Search artist, project, or IP...',
+                'hero.searchBtn': 'Search',
+                'hero.popularLabel': 'Popular:',
+                'hero.popular1': 'Jackson Wang',
+                'hero.popular2': 'Final Fantasy',
+                'hero.popular3': 'Joe Hisaishi Symphony',
+                'regions.northAmerica': 'North America',
+                'regions.europe': 'Europe',
+                'regions.chinaMainland': 'Mainland China',
+                'regions.hktw': 'Hong Kong & Taiwan',
+                'regions.jpKr': 'Japan & Korea',
+                'regions.sea': 'Southeast Asia',
+                'regions.oceania': 'Oceania',
+                'alerts.needLogin': 'Please log in before searching',
+                'alerts.emptySearch': 'Please enter a search term'
+            }
+        };
+
+        let currentLanguage = localStorage.getItem('userpage_lang') || 'zh';
+
+        function t(key) {
+            const pack = translations[currentLanguage] || translations.zh;
+            return pack[key] || translations.zh[key] || key;
+        }
+
+        function applyTranslations() {
+            document.documentElement.setAttribute('lang', currentLanguage === 'en' ? 'en' : 'zh');
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const text = t(key);
+                if (text) el.textContent = text;
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                const text = t(key);
+                if (text) el.setAttribute('placeholder', text);
+            });
+            updateLanguageToggleLabel();
+        }
+
+        function updateLanguageToggleLabel() {
+            const label = document.getElementById('languageToggleLabel');
+            if (label) {
+                label.textContent = currentLanguage === 'zh' ? '切换英文' : 'Switch to Chinese';
+            }
+        }
+
+        function initLanguage() {
+            applyTranslations();
+            const toggle = document.getElementById('languageToggle');
+            if (toggle) {
+                toggle.addEventListener('click', () => {
+                    currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+                    localStorage.setItem('userpage_lang', currentLanguage);
+                    applyTranslations();
+                });
+            }
+        }
+
+        initLanguage();
+
         // 用户状态监听
         auth.onAuthStateChanged(function (user) {
             const loginLink = document.getElementById('loginLink');
@@ -173,7 +270,7 @@
 
             if (!currentUser) {
                 // 未登录，提示并跳转到登录页
-                alert('请先登录后再进行搜索');
+                alert(t('alerts.needLogin'));
                 window.location.href = 'Login.html';
                 return;
             }
@@ -185,7 +282,7 @@
                 // 跳转到 Main.html 并带上参数
                 window.location.href = `Main.html?project=${encodeURIComponent(val)}&region=${encodeURIComponent(region)}`;
             } else {
-                alert('请输入搜索内容');
+                alert(t('alerts.emptySearch'));
             }
         }
 

@@ -158,144 +158,153 @@
         <!-- 左侧边栏 - 收藏夹管理 -->
         <div class="sidebar h-full">
             <div class="px-4 py-5">
-                <p class="text-xl font-bold text-gray-800 mb-6">我的清单</p>
-                <div class="folder-item active flex justify-between items-center mb-2">
-                    <p class="text-sm">全部项目</p>
-                    <p class="text-sm bg-blue-100 text-blue-700 px-2 rounded-full">18</p>
+                <p class="text-xl font-bold text-gray-800 mb-6" data-i18n="sidebar.myList">我的清单</p>
+                <div class="folder-item active flex justify-between items-center mb-2" data-folder-key="all">
+                    <p class="text-sm" data-i18n="sidebar.allProjects">全部项目</p>
+                    <p class="text-sm bg-blue-100 text-blue-700 px-2 rounded-full folder-count">18</p>
                 </div>
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">我的收藏夹</p>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2"
+                    data-i18n="sidebar.myFolders">我的收藏夹</p>
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="type-ip">
                     <div class="flex items-center">
-                        <p class="text-sm">📁 IP音乐会</p>
+                        <p class="text-sm" data-i18n="sidebar.ipConcerts">📁 IP音乐会</p>
                     </div>
-                    <p class="text-sm text-gray-600">5</p>
+                    <p class="text-sm text-gray-600 folder-count">5</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="type-pop">
                     <div class="flex items-center">
-                        <p class="text-sm">📁 流行演唱会</p>
+                        <p class="text-sm" data-i18n="sidebar.popConcerts">📁 流行演唱会</p>
                     </div>
-                    <p class="text-sm text-gray-600">8</p>
+                    <p class="text-sm text-gray-600 folder-count">8</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="type-classic">
                     <div class="flex items-center">
-                        <p class="text-sm">📁 古典音乐会</p>
+                        <p class="text-sm" data-i18n="sidebar.classicConcerts">📁 古典音乐会</p>
                     </div>
-                    <p class="text-sm text-gray-600">3</p>
+                    <p class="text-sm text-gray-600 folder-count">3</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="type-other">
                     <div class="flex items-center">
-                        <p class="text-sm">📁 其他</p>
+                        <p class="text-sm" data-i18n="sidebar.other">📁 其他</p>
                     </div>
-                    <p class="text-sm text-gray-600">2</p>
+                    <p class="text-sm text-gray-600 folder-count">2</p>
                 </div>
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">按目标区域市场分类</p>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2"
+                    data-i18n="sidebar.byRegion">按目标区域市场分类</p>
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="region-oceania">
                     <div class="flex items-center">
-                        <p class="text-sm">大洋洲项目</p>
+                        <p class="text-sm" data-i18n="sidebar.regionOceania">大洋洲项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">7</p>
+                    <p class="text-sm text-gray-600 folder-count">7</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="region-northamerica">
                     <div class="flex items-center">
-                        <p class="text-sm">北美项目</p>
+                        <p class="text-sm" data-i18n="sidebar.regionNorthAmerica">北美项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">3</p>
+                    <p class="text-sm text-gray-600 folder-count">3</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="region-europe">
                     <div class="flex items-center">
-                        <p class="text-sm">欧洲项目</p>
+                        <p class="text-sm" data-i18n="sidebar.regionEurope">欧洲项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">2</p>
+                    <p class="text-sm text-gray-600 folder-count">2</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="region-china">
                     <div class="flex items-center">
-                        <p class="text-sm">中国大陆项目</p>
+                        <p class="text-sm" data-i18n="sidebar.regionChina">中国大陆项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">1</p>
+                    <p class="text-sm text-gray-600 folder-count">1</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="region-japanKorea">
                     <div class="flex items-center">
-                        <p class="text-sm">日韩项目</p>
+                        <p class="text-sm" data-i18n="sidebar.regionJapanKorea">日韩项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">2</p>
+                    <p class="text-sm text-gray-600 folder-count">2</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="region-hkTw">
                     <div class="flex items-center">
-                        <p class="text-sm">港台项目</p>
+                        <p class="text-sm" data-i18n="sidebar.regionHKTW">港台项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">2</p>
+                    <p class="text-sm text-gray-600 folder-count">2</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="region-sea">
                     <div class="flex items-center">
-                        <p class="text-sm">东南亚项目</p>
+                        <p class="text-sm" data-i18n="sidebar.regionSEA">东南亚项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">2</p>
+                    <p class="text-sm text-gray-600 folder-count">2</p>
                 </div>
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">按状态分类</p>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2"
+                    data-i18n="sidebar.byStatus">按状态分类</p>
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="status-uncontacted">
                     <div class="flex items-center">
                         <span class="status-dot bg-gray-400"></span>
-                        <p class="text-sm">未联系</p>
+                        <p class="text-sm" data-i18n="sidebar.statusUncontacted">未联系</p>
                     </div>
-                    <p class="text-sm text-gray-600">6</p>
+                    <p class="text-sm text-gray-600 folder-count">6</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="status-contacted">
                     <div class="flex items-center">
                         <span class="status-dot bg-blue-500"></span>
-                        <p class="text-sm">已联系</p>
+                        <p class="text-sm" data-i18n="sidebar.statusContacted">已联系</p>
                     </div>
-                    <p class="text-sm text-gray-600">5</p>
+                    <p class="text-sm text-gray-600 folder-count">5</p>
                 </div>
-                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2">自定义收藏夹</p>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mt-4 mb-2 px-2"
+                    data-i18n="sidebar.customFolders">自定义收藏夹</p>
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="custom-q1">
                     <div class="flex items-center">
-                        <p class="text-sm">⭐ Q1优先项目</p>
+                        <p class="text-sm" data-i18n="sidebar.customQ1">⭐ Q1优先项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">3</p>
+                    <p class="text-sm text-gray-600 folder-count">3</p>
                 </div>
-                <div class="folder-item flex justify-between items-center mb-1">
+                <div class="folder-item flex justify-between items-center mb-1" data-folder-key="custom-budget">
                     <div class="flex items-center">
-                        <p class="text-sm">💰 高预算项目</p>
+                        <p class="text-sm" data-i18n="sidebar.customBudget">💰 高预算项目</p>
                     </div>
-                    <p class="text-sm text-gray-600">2</p>
+                    <p class="text-sm text-gray-600 folder-count">2</p>
                 </div>
                 <button
                     class="w-full mt-4 flex items-center justify-center py-2 border border-dashed border-gray-300 rounded-md text-gray-500 hover:border-blue-500 hover:text-blue-500 transition-all">
-                    <p class="text-sm">+ 创建新收藏夹</p>
+                    <p class="text-sm" data-i18n="sidebar.createFolder">+ 创建新收藏夹</p>
                 </button>
             </div>
         </div>
         <!-- 主内容区 -->
         <div class="main-content pb-16">
-            <div class="px-8 py-6 bg-white border-b border-gray-200">
-                <p class="text-2xl font-bold text-gray-800">详情</p>
+            <div class="px-8 py-6 bg-white border-b border-gray-200 flex items-center justify-between">
+                <p class="text-2xl font-bold text-gray-800" data-i18n="header.details">详情</p>
+                <button id="languageToggle"
+                    class="flex items-center px-3 py-1.5 border border-gray-300 rounded-md text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-language mr-2"></i>
+                    <span id="languageToggleLabel">切换英文</span>
+                </button>
             </div>
             <!-- KPI卡片 -->
             <div class="px-8 py-4">
                 <div class="grid grid-cols-4 gap-4">
                     <div class="kpi-card">
-                        <p class="text-sm text-gray-500 mb-1">总项目数</p>
+                        <p class="text-sm text-gray-500 mb-1" data-i18n="kpi.totalProjects">总项目数</p>
                         <div class="flex items-baseline">
                             <p class="text-2xl font-bold text-blue-600">18</p>
-                            <p class="text-sm text-gray-500 ml-2">个项目</p>
+                            <p class="text-sm text-gray-500 ml-2" data-i18n="kpi.projectsUnit">个项目</p>
                         </div>
                     </div>
                     <div class="kpi-card">
-                        <p class="text-sm text-gray-500 mb-1">本周新增</p>
+                        <p class="text-sm text-gray-500 mb-1" data-i18n="kpi.newThisWeek">本周新增</p>
                         <div class="flex items-baseline">
                             <p class="text-2xl font-bold text-green-600">3</p>
-                            <p class="text-sm text-green-500 ml-2">↑1</p>
+                            <p class="text-sm text-green-500 ml-2" data-i18n="kpi.newTrend">↑1</p>
                         </div>
                     </div>
                     <div class="kpi-card">
-                        <p class="text-sm text-gray-500 mb-1">待联系项目</p>
+                        <p class="text-sm text-gray-500 mb-1" data-i18n="kpi.pendingProjects">待联系项目</p>
                         <div class="flex items-baseline">
                             <p class="text-2xl font-bold text-gray-700">6</p>
-                            <p class="text-sm text-gray-500 ml-2">个项目</p>
+                            <p class="text-sm text-gray-500 ml-2" data-i18n="kpi.projectsUnit">个项目</p>
                         </div>
                     </div>
                     <div class="kpi-card">
-                        <p class="text-sm text-gray-500 mb-1">近期提醒</p>
+                        <p class="text-sm text-gray-500 mb-1" data-i18n="kpi.reminders">近期提醒</p>
                         <div class="flex items-baseline">
                             <p class="text-2xl font-bold text-orange-500">2</p>
                             <p class="text-sm text-orange-500 ml-2">⚡</p>
@@ -309,56 +318,57 @@
                 <div class="flex items-center bg-white rounded-md px-3 py-2 border border-gray-300 w-64">
                     <i class="fas fa-search text-gray-400"></i>
                     <input class="ml-2 bg-transparent border-none focus:outline-none text-sm w-full"
-                        placeholder="搜索项目名称或关键词..." type="text" />
+                        placeholder="搜索项目名称或关键词..." data-i18n-placeholder="filters.searchPlaceholder" type="text" />
                 </div>
                 <!-- 项目类型筛选 -->
                 <div class="relative">
                     <select
                         class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option>全部类型</option>
-                        <option>IP音乐会</option>
-                        <option>流行演唱会</option>
-                        <option>古典音乐会</option>
-                        <option>其他</option>
+                        <option data-i18n="filters.types.all">全部类型</option>
+                        <option data-i18n="filters.types.ip">IP音乐会</option>
+                        <option data-i18n="filters.types.pop">流行演唱会</option>
+                        <option data-i18n="filters.types.classic">古典音乐会</option>
+                        <option data-i18n="filters.types.other">其他</option>
                     </select>
                 </div>
                 <!-- 目标市场筛选 -->
                 <div class="relative">
                     <select
                         class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option>全部市场</option>
-                        <option>澳洲</option>
-                        <option>新加坡</option>
-                        <option>马来西亚</option>
-                        <option>中国</option>
+                        <option data-i18n="filters.regions.all">全部市场</option>
+                        <option data-i18n="filters.regions.australia">澳洲</option>
+                        <option data-i18n="filters.regions.singapore">新加坡</option>
+                        <option data-i18n="filters.regions.malaysia">马来西亚</option>
+                        <option data-i18n="filters.regions.china">中国</option>
                     </select>
                 </div>
                 <!-- 联系状态筛选 -->
                 <div class="relative">
                     <select
                         class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option>全部状态</option>
-                        <option>未联系</option>
-                        <option>已联系</option>
+                        <option data-i18n="filters.status.all">全部状态</option>
+                        <option data-i18n="filters.status.pending">未联系</option>
+                        <option data-i18n="filters.status.done">已联系</option>
                     </select>
                 </div>
                 <!-- 排序选项 -->
                 <div class="relative ml-auto">
                     <select
                         class="pl-3 pr-8 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option>最近更新</option>
-                        <option>机会评分</option>
-                        <option>优先级</option>
-                        <option>添加时间</option>
+                        <option data-i18n="filters.sort.latest">最近更新</option>
+                        <option data-i18n="filters.sort.score">机会评分</option>
+                        <option data-i18n="filters.sort.priority">优先级</option>
+                        <option data-i18n="filters.sort.added">添加时间</option>
                     </select>
                 </div>
             </div>
             <!-- 项目卡片列表 -->
             <div id="projectListContainer" class="px-8 py-4">
+                <div id="favoritesList" class="space-y-3"></div>
                 <!-- 项目底部操作按钮 -->
                 <div class="flex justify-center space-x-2 mt-4">
                     <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
-                        <p>查看更多项目</p>
+                        <p data-i18n="projects.viewMore">查看更多项目</p>
                     </button>
                 </div>
                 <!-- 猜你喜欢 -->
@@ -366,18 +376,18 @@
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center">
                             <i class="fas fa-sparkles text-purple-600 mr-2"></i>
-                            <p class="text-xl font-bold text-gray-800">猜你喜欢</p>
+                            <p class="text-xl font-bold text-gray-800" data-i18n="recommendations.title">猜你喜欢</p>
                         </div>
                         <button id="refreshRecommendations" class="text-sm text-blue-600 hover:text-blue-700 flex items-center">
                             <i class="fas fa-sync-alt mr-1"></i>
-                            <span>刷新推荐</span>
+                            <span data-i18n="recommendations.refresh">刷新推荐</span>
                         </button>
                     </div>
                     <div id="recommendationsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <!-- 推荐内容将在这里动态加载 -->
                         <div class="col-span-full text-center py-8 text-gray-500">
                             <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
-                            <p>正在分析您的收藏，为您推荐相似艺人...</p>
+                            <p data-i18n="recommendations.loading">正在分析您的收藏，为您推荐相似艺人...</p>
                         </div>
                     </div>
                 </div>
@@ -387,17 +397,17 @@
         <div class="fixed-bottom-bar">
             <div class="flex items-center">
                 <input class="mr-2" type="checkbox" />
-                <p class="text-sm text-gray-600">已选择 0 个项目</p>
+                <p class="text-sm text-gray-600" id="selectedCountText" data-i18n="bulk.selected">已选择 0 个项目</p>
             </div>
             <div class="flex items-center space-x-3">
                 <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
-                    <p>批量标记状态</p>
+                    <p data-i18n="bulk.markStatus">批量标记状态</p>
                 </button>
                 <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
-                    <p>批量导出</p>
+                    <p data-i18n="bulk.export">批量导出</p>
                 </button>
                 <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
-                    <p>批量移除</p>
+                    <p data-i18n="bulk.remove">批量移除</p>
                 </button>
             </div>
         </div>
@@ -418,6 +428,207 @@
         const GEMINI_API_ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent';
         let GEMINI_API_KEY = localStorage.getItem('gemini_api_key') || '';
 
+        // 国际化配置
+        const translations = {
+            zh: {
+                'header.details': '详情',
+                'sidebar.myList': '我的清单',
+                'sidebar.allProjects': '全部项目',
+                'sidebar.myFolders': '我的收藏夹',
+                'sidebar.ipConcerts': '📁 IP音乐会',
+                'sidebar.popConcerts': '📁 流行演唱会',
+                'sidebar.classicConcerts': '📁 古典音乐会',
+                'sidebar.other': '📁 其他',
+                'sidebar.byRegion': '按目标区域市场分类',
+                'sidebar.regionOceania': '大洋洲项目',
+                'sidebar.regionNorthAmerica': '北美项目',
+                'sidebar.regionEurope': '欧洲项目',
+                'sidebar.regionChina': '中国大陆项目',
+                'sidebar.regionJapanKorea': '日韩项目',
+                'sidebar.regionHKTW': '港台项目',
+                'sidebar.regionSEA': '东南亚项目',
+                'sidebar.byStatus': '按状态分类',
+                'sidebar.statusUncontacted': '未联系',
+                'sidebar.statusContacted': '已联系',
+                'sidebar.customFolders': '自定义收藏夹',
+                'sidebar.customQ1': '⭐ Q1优先项目',
+                'sidebar.customBudget': '💰 高预算项目',
+                'sidebar.createFolder': '+ 创建新收藏夹',
+                'kpi.totalProjects': '总项目数',
+                'kpi.projectsUnit': '个项目',
+                'kpi.newThisWeek': '本周新增',
+                'kpi.newTrend': '↑1',
+                'kpi.pendingProjects': '待联系项目',
+                'kpi.reminders': '近期提醒',
+                'filters.searchPlaceholder': '搜索项目名称或关键词...',
+                'filters.types.all': '全部类型',
+                'filters.types.ip': 'IP音乐会',
+                'filters.types.pop': '流行演唱会',
+                'filters.types.classic': '古典音乐会',
+                'filters.types.other': '其他',
+                'filters.regions.all': '全部市场',
+                'filters.regions.australia': '澳洲',
+                'filters.regions.singapore': '新加坡',
+                'filters.regions.malaysia': '马来西亚',
+                'filters.regions.china': '中国',
+                'filters.status.all': '全部状态',
+                'filters.status.pending': '未联系',
+                'filters.status.done': '已联系',
+                'filters.sort.latest': '最近更新',
+                'filters.sort.score': '机会评分',
+                'filters.sort.priority': '优先级',
+                'filters.sort.added': '添加时间',
+                'projects.viewMore': '查看更多项目',
+                'recommendations.title': '猜你喜欢',
+                'recommendations.refresh': '刷新推荐',
+                'recommendations.loading': '正在分析您的收藏，为您推荐相似艺人...',
+                'recommendations.noApiKeyTitle': '请先配置Gemini API Key',
+                'recommendations.noApiKeyDesc': '前往主页设置API Key后即可使用推荐功能',
+                'recommendations.noFavoritesTitle': '暂无收藏项目',
+                'recommendations.noFavoritesDesc': '添加一些收藏后，我们会为您推荐相似的艺人',
+                'recommendations.errorTitle': '获取推荐失败',
+                'recommendations.retry': '重试',
+                'recommendations.empty': '暂无推荐',
+                'recommendations.viewDetailsButton': '查看详情',
+                'favorites.badge': '我的收藏',
+                'favorites.targetMarket': '目标市场',
+                'favorites.savedAt': '收藏时间',
+                'favorites.actions': '操作',
+                'favorites.remove': '移除收藏',
+                'favorites.details': '详情',
+                'favorites.viewDetail': '查看详情',
+                'favorites.emptyTitle': '暂无收藏项目',
+                'favorites.emptyDesc': '去主页添加一些项目到收藏吧！',
+                'bulk.selected': '已选择 0 个项目',
+                'bulk.markStatus': '批量标记状态',
+                'bulk.export': '批量导出',
+                'bulk.remove': '批量移除'
+            },
+            en: {
+                'header.details': 'Details',
+                'sidebar.myList': 'My Lists',
+                'sidebar.allProjects': 'All Projects',
+                'sidebar.myFolders': 'My Favorites',
+                'sidebar.ipConcerts': '📁 IP Concerts',
+                'sidebar.popConcerts': '📁 Pop Concerts',
+                'sidebar.classicConcerts': '📁 Classical Concerts',
+                'sidebar.other': '📁 Others',
+                'sidebar.byRegion': 'By Target Region',
+                'sidebar.regionOceania': 'Oceania Projects',
+                'sidebar.regionNorthAmerica': 'North America Projects',
+                'sidebar.regionEurope': 'Europe Projects',
+                'sidebar.regionChina': 'Mainland China Projects',
+                'sidebar.regionJapanKorea': 'Japan & Korea Projects',
+                'sidebar.regionHKTW': 'Hong Kong & Taiwan Projects',
+                'sidebar.regionSEA': 'Southeast Asia Projects',
+                'sidebar.byStatus': 'By Status',
+                'sidebar.statusUncontacted': 'Not Contacted',
+                'sidebar.statusContacted': 'Contacted',
+                'sidebar.customFolders': 'Custom Lists',
+                'sidebar.customQ1': '⭐ Q1 Priority',
+                'sidebar.customBudget': '💰 High Budget',
+                'sidebar.createFolder': '+ Create New Folder',
+                'kpi.totalProjects': 'Total Projects',
+                'kpi.projectsUnit': 'projects',
+                'kpi.newThisWeek': 'New This Week',
+                'kpi.newTrend': '↑1',
+                'kpi.pendingProjects': 'Pending Contacts',
+                'kpi.reminders': 'Upcoming Reminders',
+                'filters.searchPlaceholder': 'Search projects or keywords...',
+                'filters.types.all': 'All Types',
+                'filters.types.ip': 'IP Concert',
+                'filters.types.pop': 'Pop Concert',
+                'filters.types.classic': 'Classical Concert',
+                'filters.types.other': 'Others',
+                'filters.regions.all': 'All Markets',
+                'filters.regions.australia': 'Australia',
+                'filters.regions.singapore': 'Singapore',
+                'filters.regions.malaysia': 'Malaysia',
+                'filters.regions.china': 'China',
+                'filters.status.all': 'All Status',
+                'filters.status.pending': 'Not Contacted',
+                'filters.status.done': 'Contacted',
+                'filters.sort.latest': 'Recently Updated',
+                'filters.sort.score': 'Opportunity Score',
+                'filters.sort.priority': 'Priority',
+                'filters.sort.added': 'Added Date',
+                'projects.viewMore': 'View More Projects',
+                'recommendations.title': 'Recommended for You',
+                'recommendations.refresh': 'Refresh',
+                'recommendations.loading': 'Analyzing your favorites to find similar artists...',
+                'recommendations.noApiKeyTitle': 'Please configure a Gemini API Key first',
+                'recommendations.noApiKeyDesc': 'Go to the homepage to set your API Key to use recommendations',
+                'recommendations.noFavoritesTitle': 'No favorites yet',
+                'recommendations.noFavoritesDesc': 'Add some projects to favorites and we will recommend similar artists',
+                'recommendations.errorTitle': 'Failed to load recommendations',
+                'recommendations.retry': 'Retry',
+                'recommendations.empty': 'No recommendations',
+                'recommendations.viewDetailsButton': 'See Details',
+                'favorites.badge': 'My Favorites',
+                'favorites.targetMarket': 'Target Market',
+                'favorites.savedAt': 'Saved On',
+                'favorites.actions': 'Actions',
+                'favorites.remove': 'Remove',
+                'favorites.details': 'Details',
+                'favorites.viewDetail': 'View Details',
+                'favorites.emptyTitle': 'No favorites yet',
+                'favorites.emptyDesc': 'Head back to the main page and add some favorites!',
+                'bulk.selected': 'Selected 0 projects',
+                'bulk.markStatus': 'Mark Status',
+                'bulk.export': 'Export',
+                'bulk.remove': 'Remove'
+            }
+        };
+
+        let currentLanguage = localStorage.getItem('userpage_lang') || 'zh';
+
+        function t(key) {
+            const langPack = translations[currentLanguage] || translations.zh;
+            return langPack[key] || translations.zh[key] || key;
+        }
+
+        function applyTranslations() {
+            document.documentElement.setAttribute('lang', currentLanguage === 'en' ? 'en' : 'zh-CN');
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const text = t(key);
+                if (text) {
+                    el.textContent = text;
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                const text = t(key);
+                if (text) {
+                    el.setAttribute('placeholder', text);
+                }
+            });
+            updateLanguageToggleLabel();
+        }
+
+        function updateLanguageToggleLabel() {
+            const label = document.getElementById('languageToggleLabel');
+            if (label) {
+                label.textContent = currentLanguage === 'zh' ? '切换英文' : 'Switch to Chinese';
+            }
+        }
+
+        function initLanguage() {
+            applyTranslations();
+            const toggle = document.getElementById('languageToggle');
+            if (toggle) {
+                toggle.addEventListener('click', async () => {
+                    currentLanguage = currentLanguage === 'zh' ? 'en' : 'zh';
+                    localStorage.setItem('userpage_lang', currentLanguage);
+                    applyTranslations();
+                    await loadFavorites(true);
+                    await loadRecommendations(cachedFavorites);
+                });
+            }
+        }
+
+        let cachedFavorites = [];
+
         // 等待用户登录状态初始化
         firebase.auth().onAuthStateChanged(async function (user) {
             if (user) {
@@ -429,6 +640,7 @@
             } else {
                 console.log('用户未登录，跳过加载收藏列表');
             }
+            initLanguage();
         });
 
         // 刷新推荐按钮事件
@@ -437,18 +649,11 @@
         });
 
         // 计算并更新收藏夹数字
-        async function updateFolderCounts() {
-            const savedProjects = await favoritesManager.getAllFavorites();
+        async function updateFolderCounts(projectsData) {
+            const savedProjects = projectsData || await favoritesManager.getAllFavorites();
             const totalCount = savedProjects.length;
 
-            // 更新"全部项目"数量
-            const allProjectsItem = document.querySelector('.folder-item.active');
-            if (allProjectsItem) {
-                const countElement = allProjectsItem.querySelector('p.bg-blue-100, p:last-child');
-                if (countElement) {
-                    countElement.textContent = totalCount;
-                }
-            }
+            setFolderCount('all', totalCount);
 
             // 按项目类型分类统计
             const typeCounts = {
@@ -512,32 +717,31 @@
                 }
             });
 
-            // 更新项目类型数字
-            updateFolderItemCount('📁 IP音乐会', typeCounts['IP音乐会']);
-            updateFolderItemCount('📁 流行演唱会', typeCounts['流行演唱会']);
-            updateFolderItemCount('📁 古典音乐会', typeCounts['古典音乐会']);
-            updateFolderItemCount('📁 其他', typeCounts['其他']);
+            setFolderCount('type-ip', typeCounts['IP音乐会']);
+            setFolderCount('type-pop', typeCounts['流行演唱会']);
+            setFolderCount('type-classic', typeCounts['古典音乐会']);
+            setFolderCount('type-other', typeCounts['其他']);
 
             // 更新区域市场数字
-            updateFolderItemCount('大洋洲项目', regionCounts['大洋洲项目']);
-            updateFolderItemCount('北美项目', regionCounts['北美项目']);
-            updateFolderItemCount('欧洲项目', regionCounts['欧洲项目']);
-            updateFolderItemCount('中国大陆项目', regionCounts['中国大陆项目']);
-            updateFolderItemCount('日韩项目', regionCounts['日韩项目']);
-            updateFolderItemCount('港台项目', regionCounts['港台项目']);
-            updateFolderItemCount('东南亚项目', regionCounts['东南亚项目']);
+            setFolderCount('region-oceania', regionCounts['大洋洲项目']);
+            setFolderCount('region-northamerica', regionCounts['北美项目']);
+            setFolderCount('region-europe', regionCounts['欧洲项目']);
+            setFolderCount('region-china', regionCounts['中国大陆项目']);
+            setFolderCount('region-japanKorea', regionCounts['日韩项目']);
+            setFolderCount('region-hkTw', regionCounts['港台项目']);
+            setFolderCount('region-sea', regionCounts['东南亚项目']);
 
             // 更新状态数字
-            updateFolderItemCount('未联系', statusCounts['未联系'], true);
-            updateFolderItemCount('已联系', statusCounts['已联系'], true);
+            setFolderCount('status-uncontacted', statusCounts['未联系']);
+            setFolderCount('status-contacted', statusCounts['已联系']);
 
             // 自定义收藏夹统计（基于项目属性）
             const customCounts = {
-                'Q1优先项目': savedProjects.filter(p => p.priority === 'Q1' || p.priority === 'high').length,
-                '高预算项目': savedProjects.filter(p => p.budget === 'high' || (p.score && p.score >= 95)).length
+                q1: savedProjects.filter(p => p.priority === 'Q1' || p.priority === 'high').length,
+                budget: savedProjects.filter(p => p.budget === 'high' || (p.score && p.score >= 95)).length
             };
-            updateFolderItemCount('⭐ Q1优先项目', customCounts['Q1优先项目']);
-            updateFolderItemCount('💰 高预算项目', customCounts['高预算项目']);
+            setFolderCount('custom-q1', customCounts.q1);
+            setFolderCount('custom-budget', customCounts.budget);
 
             // 更新KPI卡片
             updateKPICards(savedProjects);
@@ -556,40 +760,11 @@
             return '其他';
         }
 
-        // 辅助函数：更新收藏夹项的数字
-        function updateFolderItemCount(text, count, isStatus = false) {
-            const folderItems = document.querySelectorAll('.folder-item');
-            folderItems.forEach(item => {
-                const textElements = item.querySelectorAll('p.text-sm');
-                if (textElements.length >= 1) {
-                    const firstText = textElements[0].textContent.trim();
-                    const searchText = text.replace('📁 ', '').replace('⭐ ', '').replace('💰 ', '');
-                    
-                    // 对于状态项，匹配文本（可能包含状态点）
-                    if (isStatus) {
-                        if (firstText.includes(text) || firstText === text) {
-                            // 找到最后一个p元素（应该是数字）
-                            if (textElements.length >= 2) {
-                                textElements[textElements.length - 1].textContent = count;
-                            }
-                        }
-                    } else {
-                        // 对于普通项，匹配文本内容
-                        if (firstText.includes(searchText) || firstText === searchText) {
-                            // 找到最后一个p元素（应该是数字）
-                            if (textElements.length >= 2) {
-                                const lastElement = textElements[textElements.length - 1];
-                                // 确保不是包含emoji的文本元素
-                                if (!lastElement.textContent.includes('📁') && 
-                                    !lastElement.textContent.includes('⭐') && 
-                                    !lastElement.textContent.includes('💰')) {
-                                    lastElement.textContent = count;
-                                }
-                            }
-                        }
-                    }
-                }
-            });
+        function setFolderCount(folderKey, count) {
+            const target = document.querySelector(`[data-folder-key="${folderKey}"] .folder-count`);
+            if (target) {
+                target.textContent = count;
+            }
         }
 
         // 更新KPI卡片
@@ -632,19 +807,25 @@
         }
 
         // 加载收藏列表函数
-        async function loadFavorites() {
-            const listContainer = document.getElementById('projectListContainer');
+        async function loadFavorites(useCache = false) {
+            const listContainer = document.getElementById('favoritesList');
+            if (!listContainer) return;
 
-            // 使用 Firestore manager 获取收藏
-            const savedProjects = await favoritesManager.getAllFavorites();
+            let savedProjects = cachedFavorites;
+            if (!useCache || savedProjects.length === 0) {
+                savedProjects = await favoritesManager.getAllFavorites();
+                cachedFavorites = savedProjects;
+            }
             console.log('获取到收藏项目:', savedProjects.length);
 
             // 更新收藏夹数字
-            await updateFolderCounts();
+            await updateFolderCounts(savedProjects);
 
-            if (savedProjects.length > 0 && listContainer) {
-                // Generate HTML
-                const html = savedProjects.map(p => `
+            if (savedProjects.length > 0) {
+                const locale = currentLanguage === 'en' ? 'en-US' : 'zh-CN';
+                const html = savedProjects.map(p => {
+                    const dateText = p.dateAdded ? new Date(p.dateAdded).toLocaleDateString(locale) : '';
+                    return `
                     <div class="project-card flex bg-blue-50 border-blue-200">
                         <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
                             <img alt="${p.name}" class="w-full h-full object-cover" src="${p.image || 'https://placehold.co/400x600?text=No+Image'}" />
@@ -653,55 +834,50 @@
                             <div class="flex items-center justify-between mb-1">
                                 <div class="flex items-center">
                                     <p class="font-medium text-lg text-gray-800">${p.name}</p>
-                                    <span class="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full">我的收藏</span>
+                                    <span class="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full">${t('favorites.badge')}</span>
                                 </div>
                                 <div class="badge badge-green">
-                                    <p>${p.score || 90}分</p>
+                                    <p>${p.score || 90}${currentLanguage === 'zh' ? '分' : ''}</p>
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
                                 <div>
-                                    <p class="text-xs text-gray-500 mb-1">目标市场</p>
+                                    <p class="text-xs text-gray-500 mb-1">${t('favorites.targetMarket')}</p>
                                     <div class="flex space-x-2">
                                         <div class="badge badge-blue">
-                                            <p>${p.region}</p>
+                                            <p>${p.region || (currentLanguage === 'zh' ? '未设置' : 'Not set')}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-500 mb-1">收藏时间</p>
-                                    <p class="text-sm text-gray-700">${new Date(p.dateAdded).toLocaleDateString()}</p>
+                                    <p class="text-xs text-gray-500 mb-1">${t('favorites.savedAt')}</p>
+                                    <p class="text-sm text-gray-700">${dateText}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
                             <div class="space-y-2">
                                 <div>
-                                    <p class="text-xs text-gray-500 mb-0.5">操作</p>
-                                    <button onclick="removeProject('${p.name}')" class="text-sm text-red-500 hover:underline">移除收藏</button>
+                                    <p class="text-xs text-gray-500 mb-0.5">${t('favorites.actions')}</p>
+                                    <button onclick="removeProject('${p.name}')" class="text-sm text-red-500 hover:underline">${t('favorites.remove')}</button>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-500 mb-0.5">详情</p>
-                                    <a href="Main.html?project=${encodeURIComponent(p.name)}&region=${encodeURIComponent(p.region)}" class="text-sm text-blue-600 hover:underline">查看详情</a>
+                                    <p class="text-xs text-gray-500 mb-0.5">${t('favorites.details')}</p>
+                                    <a href="Main.html?project=${encodeURIComponent(p.name)}&region=${encodeURIComponent(p.region || '')}" class="text-sm text-blue-600 hover:underline">${t('favorites.viewDetail')}</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                `).join('');
-
-                // 在"查看更多项目"按钮前插入收藏项目
-                const firstChild = listContainer.firstChild;
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = html;
-                while (tempDiv.lastChild) {
-                    listContainer.insertBefore(tempDiv.lastChild, firstChild);
-                }
-            } else if (listContainer) {
-                // 如果没有项目，显示空状态
-                const emptyDiv = document.createElement('div');
-                emptyDiv.className = 'text-center py-12 text-gray-500';
-                emptyDiv.innerHTML = '<p class="text-lg mb-2">暂无收藏项目</p><p class="text-sm">去主页添加一些项目到收藏吧！</p>';
-                listContainer.insertBefore(emptyDiv, listContainer.firstChild);
+                `;
+                }).join('');
+                listContainer.innerHTML = html;
+            } else {
+                listContainer.innerHTML = `
+                    <div class="text-center py-12 text-gray-500">
+                        <p class="text-lg mb-2">${t('favorites.emptyTitle')}</p>
+                        <p class="text-sm">${t('favorites.emptyDesc')}</p>
+                    </div>
+                `;
             }
         }
 
@@ -714,72 +890,60 @@
         }
 
         // 加载推荐艺人
-        async function loadRecommendations() {
+        async function loadRecommendations(favoritesData) {
             const container = document.getElementById('recommendationsContainer');
             if (!container) return;
 
-                // 检查API Key
             if (!GEMINI_API_KEY) {
                 container.innerHTML = `
                     <div class="col-span-full text-center py-8 text-gray-500">
                         <i class="fas fa-exclamation-circle text-2xl mb-2 text-yellow-500"></i>
-                        <p>请先配置Gemini API Key</p>
-                        <p class="text-sm mt-2">前往主页设置API Key后即可使用推荐功能</p>
+                        <p>${t('recommendations.noApiKeyTitle')}</p>
+                        <p class="text-sm mt-2">${t('recommendations.noApiKeyDesc')}</p>
                     </div>
                 `;
                 return;
             }
 
-            // 获取收藏项目
-            const savedProjects = await favoritesManager.getAllFavorites();
+            let savedProjects = favoritesData && favoritesData.length ? favoritesData : cachedFavorites;
+            if (!savedProjects.length) {
+                savedProjects = await favoritesManager.getAllFavorites();
+                cachedFavorites = savedProjects;
+            }
+
             if (savedProjects.length === 0) {
                 container.innerHTML = `
                     <div class="col-span-full text-center py-8 text-gray-500">
                         <i class="fas fa-heart text-2xl mb-2"></i>
-                        <p>暂无收藏项目</p>
-                        <p class="text-sm mt-2">添加一些收藏后，我们会为您推荐相似的艺人</p>
+                        <p>${t('recommendations.noFavoritesTitle')}</p>
+                        <p class="text-sm mt-2">${t('recommendations.noFavoritesDesc')}</p>
                     </div>
                 `;
                 return;
             }
 
-            // 显示加载状态
             container.innerHTML = `
-                <div class="col-span-3 text-center py-8 text-gray-500">
+                <div class="col-span-full text-center py-8 text-gray-500">
                     <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
-                    <p>正在分析您的收藏，为您推荐相似艺人...</p>
+                    <p>${t('recommendations.loading')}</p>
                 </div>
             `;
 
             try {
-                // 构建提示词
                 const projectNames = savedProjects.map(p => p.name).join('、');
                 const projectRegions = [...new Set(savedProjects.map(p => p.region).filter(Boolean))].join('、');
                 
-                const prompt = `你是一位专业的音乐产业分析师。用户收藏了以下演出项目：
+                const prompt = `你是一位精通全球演出市场的音乐产业分析师。请根据用户收藏的演出项目，推荐3个最相似的艺人或演出项目：
 
-${projectNames}
+收藏列表：${projectNames}
+目标市场：${projectRegions || '全球'}
 
-这些项目主要涉及的市场区域：${projectRegions || '全球'}
+输出要求：
+1. 仅返回JSON，不要包含额外说明
+2. JSON结构为 {"recommendations":[{"name":"","reason":""}, ...]}
+3. reason字段需简洁说明推荐理由，突出与收藏项目的相似点
+4. 推荐需覆盖类型/风格/市场等多维度相似性`;
 
-请基于用户的收藏偏好，推荐3个与这些项目风格、类型或目标市场相似的艺人/演出项目。
-
-要求：
-1. 推荐3个艺人或演出项目
-2. 每个推荐需要包含：艺人/项目名称、推荐理由（简短说明为什么推荐，与收藏项目的相似之处）
-3. 格式要求：返回JSON格式，格式如下：
-{
-  "recommendations": [
-    {
-      "name": "艺人/项目名称",
-      "reason": "推荐理由，说明与收藏项目的相似之处"
-    },
-    ...
-  ]
-}
-4. 只返回JSON，不要其他文字说明`;
-
-                // 调用Gemini API
                 const response = await fetch(`${GEMINI_API_ENDPOINT}?key=${GEMINI_API_KEY}`, {
                     method: 'POST',
                     headers: {
@@ -800,20 +964,16 @@ ${projectNames}
                     throw new Error(data.error.message || 'API调用失败');
                 }
 
-                // 解析返回内容
-                const text = data.candidates[0].content.parts[0].text;
+                const text = data.candidates[0]?.content?.parts?.[0]?.text || '';
                 let recommendations = [];
 
-                // 尝试提取JSON
                 try {
-                    // 尝试直接解析JSON
                     const jsonMatch = text.match(/\{[\s\S]*\}/);
                     if (jsonMatch) {
                         const jsonData = JSON.parse(jsonMatch[0]);
                         recommendations = jsonData.recommendations || [];
                     }
                 } catch (e) {
-                    // 如果JSON解析失败，尝试手动解析
                     console.warn('JSON解析失败，尝试手动解析:', e);
                     const lines = text.split('\n');
                     let currentName = '';
@@ -838,15 +998,11 @@ ${projectNames}
                     }
                 }
 
-                // 确保至少有3个推荐
                 if (recommendations.length === 0) {
                     throw new Error('未能解析推荐结果');
                 }
 
-                // 限制为3个
                 recommendations = recommendations.slice(0, 3);
-
-                // 显示推荐
                 displayRecommendations(recommendations, container);
 
             } catch (error) {
@@ -854,10 +1010,10 @@ ${projectNames}
                 container.innerHTML = `
                     <div class="col-span-full text-center py-8 text-red-500">
                         <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
-                        <p>获取推荐失败</p>
-                        <p class="text-sm mt-2 text-gray-600">${error.message || '未知错误'}</p>
+                        <p>${t('recommendations.errorTitle')}</p>
+                        <p class="text-sm mt-2 text-gray-600">${error.message || 'Unknown error'}</p>
                         <button onclick="loadRecommendations()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-sm">
-                            重试
+                            ${t('recommendations.retry')}
                         </button>
                     </div>
                 `;
@@ -869,16 +1025,18 @@ ${projectNames}
             if (recommendations.length === 0) {
                 container.innerHTML = `
                     <div class="col-span-full text-center py-8 text-gray-500">
-                        <p>暂无推荐</p>
+                        <p>${t('recommendations.empty')}</p>
                     </div>
                 `;
                 return;
             }
 
             container.innerHTML = recommendations.map((rec, index) => {
-                // 转义HTML特殊字符，防止XSS
-                const name = (rec.name || '未知艺人').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                const reason = (rec.reason || '推荐理由').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                const nameText = rec.name || (currentLanguage === 'en' ? 'Unknown Artist' : '未知艺人');
+                const reasonText = rec.reason || (currentLanguage === 'en' ? 'No description' : '推荐理由');
+                const name = nameText.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                const reason = reasonText.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                const safeNameForAction = (rec.name || '').replace(/'/g, "\\'");
                 
                 return `
                 <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border border-gray-200">
@@ -892,8 +1050,8 @@ ${projectNames}
                         </div>
                     </div>
                     <div class="mt-4 pt-4 border-t border-gray-100">
-                        <button onclick="searchArtist('${rec.name.replace(/'/g, "\\'")}')" class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm">
-                            <i class="fas fa-search mr-2"></i>查看详情
+                        <button onclick="searchArtist('${safeNameForAction}')" class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm">
+                            <i class="fas fa-search mr-2"></i>${t('recommendations.viewDetailsButton')}
                         </button>
                     </div>
                 </div>
@@ -908,4 +1066,5 @@ ${projectNames}
     </script>
 </body>
 
+</html>
 </html>
