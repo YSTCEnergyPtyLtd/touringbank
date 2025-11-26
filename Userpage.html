@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="zh-CN">
 
 <head>
@@ -20,11 +19,11 @@
         }
 
         .slide-container {
-            width: 1280px;
-            min-height: 720px;
-            overflow: hidden;
+            width: 100%;
+            min-height: 100vh;
             position: relative;
             background-color: #f9fafb;
+            display: flex;
         }
 
         .sidebar {
@@ -35,11 +34,13 @@
             position: fixed;
             top: 0;
             bottom: 0;
+            left: 0;
         }
 
         .main-content {
             margin-left: 240px;
             width: calc(100% - 240px);
+            min-height: 100vh;
             overflow-y: auto;
         }
 
@@ -353,205 +354,7 @@
                 </div>
             </div>
             <!-- 项目卡片列表 -->
-            <div class="px-8 py-4">
-                <!-- 项目1 - Final Fantasy音乐会 -->
-                <div class="project-card flex">
-                    <!-- 左侧：海报缩略图 -->
-                    <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
-                        <img alt="Final Fantasy音乐会" class="w-full h-full object-cover"
-                            src="https://page.gensparksite.com/slides_images/a8060e25777b378aee1c3bcaa8ceb43f.png" />
-                    </div>
-                    <!-- 中部：项目信息 -->
-                    <div class="ml-4 flex-grow">
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="flex items-center">
-                                <p class="font-medium text-lg text-gray-800">Final Fantasy音乐会</p>
-                                <span
-                                    class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">IP音乐会</span>
-                            </div>
-                            <div class="badge badge-green">
-                                <p>92分</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">目标市场</p>
-                                <div class="flex space-x-2">
-                                    <div class="badge badge-green">
-                                        <p>🇦🇺 澳洲 ✅</p>
-                                    </div>
-                                    <div class="badge badge-green">
-                                        <p>🇸🇬 新加坡 ✅</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">巡演状态</p>
-                                <div class="flex items-center">
-                                    <span class="status-dot bg-green-500"></span>
-                                    <p class="text-sm text-gray-700">🟢 On-Touring · 亚洲巡演中 · 2025-Q1</p>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">窗口机会</p>
-                                <p class="text-sm text-green-600">预计2025-Q3可进入澳洲</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 右侧：追踪管理 -->
-                    <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
-                        <div class="space-y-2">
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">联系状态</p>
-                                <p class="text-sm status-gray">未联系</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">优先级</p>
-                                <p class="text-sm text-yellow-500">⭐⭐⭐ 高</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">最后更新</p>
-                                <p class="text-sm text-gray-600">2天前</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">我的备注</p>
-                                <p class="text-sm text-gray-500 italic">待评估预算...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 项目2 - 宫崎骏交响音乐会 -->
-                <div class="project-card flex">
-                    <!-- 左侧：海报缩略图 -->
-                    <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
-                        <img alt="宫崎骏交响音乐会" class="w-full h-full object-cover"
-                            src="https://page.gensparksite.com/slides_images/df6a6ef5d8e868dd4a49443769d18432.png" />
-                    </div>
-                    <!-- 中部：项目信息 -->
-                    <div class="ml-4 flex-grow">
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="flex items-center">
-                                <p class="font-medium text-lg text-gray-800">宫崎骏交响音乐会</p>
-                                <span
-                                    class="ml-2 px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">IP音乐会</span>
-                            </div>
-                            <div class="badge badge-green">
-                                <p>89分</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">目标市场</p>
-                                <div class="flex space-x-2">
-                                    <div class="badge badge-green">
-                                        <p>🇦🇺 澳洲 ✅</p>
-                                    </div>
-                                    <div class="badge badge-yellow">
-                                        <p>🇲🇾 马来西亚 ⚠️</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">巡演状态</p>
-                                <div class="flex items-center">
-                                    <span class="status-dot bg-green-500"></span>
-                                    <p class="text-sm text-gray-700">🟢 On-Touring · 亚洲巡演中 · 2025-Q1</p>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">窗口机会</p>
-                                <p class="text-sm text-green-600">预计2025-Q2可进入澳洲</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 右侧：追踪管理 -->
-                    <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
-                        <div class="space-y-2">
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">联系状态</p>
-                                <p class="text-sm status-blue">已联系</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">优先级</p>
-                                <p class="text-sm text-yellow-500">⭐⭐ 中</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">最后更新</p>
-                                <p class="text-sm text-gray-600">5天前</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">我的备注</p>
-                                <p class="text-sm text-gray-500 italic">已联系官方...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- 项目3 - Coldplay巡演 -->
-                <div class="project-card flex">
-                    <!-- 左侧：海报缩略图 -->
-                    <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
-                        <img alt="Coldplay巡演" class="w-full h-full object-cover"
-                            src="https://page.gensparksite.com/slides_images/ed74ea71ebcf2cd9ef382fe54db8ab9a.png" />
-                    </div>
-                    <!-- 中部：项目信息 -->
-                    <div class="ml-4 flex-grow">
-                        <div class="flex items-center justify-between mb-1">
-                            <div class="flex items-center">
-                                <p class="font-medium text-lg text-gray-800">Coldplay巡演</p>
-                                <span
-                                    class="ml-2 px-2 py-0.5 bg-purple-100 text-purple-800 text-xs rounded-full">流行演唱会</span>
-                            </div>
-                            <div class="badge badge-green">
-                                <p>95分</p>
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">目标市场</p>
-                                <div class="flex space-x-2">
-                                    <div class="badge badge-green">
-                                        <p>🇦🇺 澳洲 ✅</p>
-                                    </div>
-                                    <div class="badge badge-green">
-                                        <p>🇨🇳 中国 ✅</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">巡演状态</p>
-                                <div class="flex items-center">
-                                    <span class="status-dot bg-green-500"></span>
-                                    <p class="text-sm text-gray-700">🟢 On-Touring · 欧洲巡演中 · 2025-Q2</p>
-                                </div>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-1">窗口机会</p>
-                                <p class="text-sm text-green-600">预计2025-Q4可进入澳洲</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 右侧：追踪管理 -->
-                    <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
-                        <div class="space-y-2">
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">联系状态</p>
-                                <p class="text-sm status-blue">已联系</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">优先级</p>
-                                <p class="text-sm text-yellow-500">⭐⭐⭐ 高</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">最后更新</p>
-                                <p class="text-sm text-gray-600">昨天</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-500 mb-0.5">我的备注</p>
-                                <p class="text-sm text-gray-500 italic">等待报价确认...</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div id="projectListContainer" class="px-8 py-4">
                 <!-- 项目底部操作按钮 -->
                 <div class="flex justify-center space-x-2 mt-4">
                     <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
@@ -559,26 +362,122 @@
                     </button>
                 </div>
             </div>
-            <!-- 底部固定操作栏 -->
-            <div class="fixed-bottom-bar">
-                <div class="flex items-center">
-                    <input class="mr-2" type="checkbox" />
-                    <p class="text-sm text-gray-600">已选择 0 个项目</p>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
-                        <p>批量标记状态</p>
-                    </button>
-                    <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
-                        <p>批量导出</p>
-                    </button>
-                    <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
-                        <p>批量移除</p>
-                    </button>
-                </div>
+        </div>
+        <!-- 底部固定操作栏 -->
+        <div class="fixed-bottom-bar">
+            <div class="flex items-center">
+                <input class="mr-2" type="checkbox" />
+                <p class="text-sm text-gray-600">已选择 0 个项目</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
+                    <p>批量标记状态</p>
+                </button>
+                <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
+                    <p>批量导出</p>
+                </button>
+                <button class="px-3 py-1.5 bg-white border border-gray-300 text-gray-600 rounded-md text-sm">
+                    <p>批量移除</p>
+                </button>
             </div>
         </div>
     </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase配置和管理模块 -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/favorites-manager.js"></script>
+
+    <!-- 用户登录状态监听和收藏列表加载 -->
+    <script>
+        // 等待用户登录状态初始化
+        firebase.auth().onAuthStateChanged(async function (user) {
+            if (user) {
+                console.log('用户已登录:', user.email);
+                // 用户已登录，加载收藏列表
+                await loadFavorites();
+            } else {
+                console.log('用户未登录，跳过加载收藏列表');
+            }
+        });
+
+        // 加载收藏列表函数
+        async function loadFavorites() {
+            const listContainer = document.getElementById('projectListContainer');
+
+            // 使用 Firestore manager 获取收藏
+            const savedProjects = await favoritesManager.getAllFavorites();
+            console.log('获取到收藏项目:', savedProjects.length);
+
+            if (savedProjects.length > 0 && listContainer) {
+                // Generate HTML
+                const html = savedProjects.map(p => `
+                    <div class="project-card flex bg-blue-50 border-blue-200">
+                        <div class="w-20 h-28 bg-gray-200 rounded overflow-hidden flex-shrink-0">
+                            <img alt="${p.name}" class="w-full h-full object-cover" src="${p.image || 'https://placehold.co/400x600?text=No+Image'}" />
+                        </div>
+                        <div class="ml-4 flex-grow">
+                            <div class="flex items-center justify-between mb-1">
+                                <div class="flex items-center">
+                                    <p class="font-medium text-lg text-gray-800">${p.name}</p>
+                                    <span class="ml-2 px-2 py-0.5 bg-red-100 text-red-800 text-xs rounded-full">我的收藏</span>
+                                </div>
+                                <div class="badge badge-green">
+                                    <p>${p.score || 90}分</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-x-12 gap-y-2 mb-3">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">目标市场</p>
+                                    <div class="flex space-x-2">
+                                        <div class="badge badge-blue">
+                                            <p>${p.region}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-1">收藏时间</p>
+                                    <p class="text-sm text-gray-700">${new Date(p.dateAdded).toLocaleDateString()}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml-4 w-48 flex-shrink-0 border-l border-gray-100 pl-4">
+                            <div class="space-y-2">
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-0.5">操作</p>
+                                    <button onclick="removeProject('${p.name}')" class="text-sm text-red-500 hover:underline">移除收藏</button>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 mb-0.5">详情</p>
+                                    <a href="Main.html?project=${encodeURIComponent(p.name)}&region=${encodeURIComponent(p.region)}" class="text-sm text-blue-600 hover:underline">查看详情</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // 在"查看更多项目"按钮前插入收藏项目
+                const firstChild = listContainer.firstChild;
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                while (tempDiv.lastChild) {
+                    listContainer.insertBefore(tempDiv.lastChild, firstChild);
+                }
+            }
+        }
+
+        // 移除收藏项目
+        async function removeProject(name) {
+            if (confirm('确定要移除吗？')) {
+                await favoritesManager.removeFavorite(name);
+                window.location.reload();
+            }
+        }
+    </script>
 </body>
 
 </html>

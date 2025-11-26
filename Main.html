@@ -11,6 +11,8 @@
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <!-- 新增：Firestore SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body class="bg-gray-50 min-h-screen">
@@ -72,7 +74,14 @@
                     </div>
                 </div>
                 <div class="flex-1">
-                    <h1 id="projectTitle" class="text-3xl font-bold text-gray-900 mb-4">加载中...</h1>
+                    <div class="flex items-center justify-between mb-4">
+                        <h1 id="projectTitle" class="text-3xl font-bold text-gray-900">加载中...</h1>
+                        <button id="addToListBtn"
+                            class="text-gray-400 hover:text-red-500 transition-colors bg-white p-2 rounded-full shadow-sm border border-gray-100"
+                            title="添加到我的清单">
+                            <i class="far fa-heart text-2xl"></i>
+                        </button>
+                    </div>
 
                     <!-- Overview API Status Bar -->
                     <div id="overviewStatusBar"
@@ -488,6 +497,10 @@
                 });
             }
         </script>
+
+        <script src="js/firebase-config.js"></script>
+        <!-- 新增：加载 favorites manager -->
+        <script src="js/favorites-manager.js"></script>
         <script src="js/main.js"></script>
 </body>
 
