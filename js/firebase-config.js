@@ -28,8 +28,10 @@ firebase.initializeApp(firebaseConfig);
 
 // 获取Auth实例
 const auth = firebase.auth();
+const db = firebase.firestore();
 
 // 设置语言为中文
 auth.languageCode = 'zh-CN';
 
+console.log('Firestore已初始化');
 console.log('Firebase已初始化');

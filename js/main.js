@@ -994,6 +994,70 @@ if (project) {
     }
 }
 
+// Favorites / My List Logic
+const addToListBtn = document.getElementById('addToListBtn');
+
+// function getSavedProjects() {
+//     const saved = localStorage.getItem('my_saved_projects');
+//     return saved ? JSON.parse(saved) : [];
+// }
+
+// function isProjectSaved(projectName) {
+//     const projects = getSavedProjects();
+//     return projects.some(p => p.name === projectName);
+// }
+
+async function toggleSaveProject() {
+    if (!project) return;
+    const icon = addToListBtn.querySelector('i');
+    const isSaved = await favoritesManager.isFavorite(project);
+
+    if (!isSaved) {
+        // Add to list
+        const imgEl = document.querySelector('img[alt="Project Cover"]');
+        const imgSrc = imgEl ? imgEl.src : '';
+
+        const success = await favoritesManager.addFavorite({
+            name: project,
+            region: region || 'Global',
+            image: imgSrc,
+            score: Math.floor(Math.random() * 10) + 90 // Mock score
+        });
+        if (success) {
+            icon.classList.remove('far');
+            icon.classList.add('fas', 'text-red-500');
+            addToListBtn.classList.add('text-red-500');
+        }
+    } else {
+        // Remove from list
+        const success = await favoritesManager.removeFavorite(project);
+
+        if (success) {
+            icon.classList.remove('fas', 'text-red-500');
+            icon.classList.add('far');
+            addToListBtn.classList.remove('text-red-500');
+        }
+    }
+}
+
+if (addToListBtn && project) {
+    // 等待用户登录状态后再检查收藏状态
+    firebase.auth().onAuthStateChanged(async function (user) {
+        if (user) {
+            // 用户已登录，检查是否已收藏
+            const isSaved = await favoritesManager.isFavorite(project);
+            if (isSaved) {
+                const icon = addToListBtn.querySelector('i');
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-red-500');
+                addToListBtn.classList.add('text-red-500');
+            }
+        }
+    });
+
+    addToListBtn.addEventListener('click', toggleSaveProject);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const loadMoreBtn = document.getElementById('loadMoreBtn');
     if (loadMoreBtn) {
